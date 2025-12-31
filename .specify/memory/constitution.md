@@ -1,55 +1,80 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+Sync Impact Report:
+Version change: 0.0.0 -> 1.0.0 (Minor: New principles and sections added)
+Modified principles:
+  - Accuracy through primary source verification and real-world examples (Added)
+  - Clarity for technical audience (engineers, researchers, and enthusiasts with STEM background) (Added)
+  - Reproducibility (all technical claims, code, and experiments cited and traceable) (Added)
+  - Rigor (peer-reviewed sources preferred, supplemented with industry reports and patents) (Added)
+  - Ethical AI and robotics focus (address safety, bias, societal impact, and human-robot interaction guidelines) (Added)
+  - Comprehensiveness (cover hardware, software, integration, and future trends) (Added)
+  - Engagement (use diagrams, case studies, and practical tutorials to maintain reader interest) (Added)
+Added sections:
+  - Key Standards
+  - Constraints
+  - Success Criteria
+Removed sections: None
+Templates requiring updates:
+  - .specify/templates/plan-template.md (⚠ pending)
+  - .specify/templates/spec-template.md (⚠ pending)
+  - .specify/templates/tasks-template.md (⚠ pending)
+  - .specify/templates/commands/*.md (⚠ pending)
+Follow-up TODOs: RATIFICATION_DATE needs to be set by the project owner.
+-->
+# Physical AI & Humanoid Robotics — A Modern Technical Guide Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Accuracy through Primary Source Verification and Real-World Examples
+All factual claims MUST be traceable to primary sources and supported by real-world examples for enhanced clarity and understanding.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### II. Clarity for Technical Audience
+The content MUST be written with a clear, concise, and precise language, tailored for a technical audience including engineers, researchers, and enthusiasts with a STEM background.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### III. Reproducibility
+All technical claims, code, and experiments presented MUST be reproducible. This requires including explicit citations and traceable links to datasets, code repositories (e.g., GitHub), CAD files, or simulation tools where applicable.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### IV. Rigor
+The content MUST demonstrate academic and technical rigor, prioritizing peer-reviewed sources, and supplementing with reputable industry reports and patents.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### V. Ethical AI and Robotics Focus
+Discussions MUST integrate ethical considerations related to AI and robotics, addressing safety, bias, societal impact, and adherence to human-robot interaction guidelines.
 
-### [PRINCIPLE_6_NAME]
+### VI. Comprehensiveness
+The guide MUST provide comprehensive coverage across hardware, software, system integration, and future trends in the field of Physical AI and Humanoid Robotics.
 
+### VII. Engagement
+The content MUST be engaging for the reader, utilizing visual aids such as diagrams, practical case studies, and hands-on tutorials.
 
-[PRINCIPLE__DESCRIPTION]
+## Key Standards
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+- All factual claims MUST be traceable to sources.
+- Citation format: Chicago style (author-date) for books.
+- Source types: Minimum 40% peer-reviewed articles, plus books, patents, conference proceedings, and reputable industry whitepapers.
+- Plagiarism check: 0% tolerance before submission.
+- Writing clarity: Flesch-Kincaid grade 12-14.
+- Reproducibility: Include links to datasets, code repositories (e.g., GitHub), CAD files, or simulation tools where applicable.
+- Visual aids: Minimum 20 figures/diagrams per chapter, with captions and sources.
+- Up-to-date content: Incorporate developments up to 2025, with a section on emerging trends.
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+## Constraints
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+- Word count: 80,000-120,000 words.
+- Minimum 50 sources.
+- Format: PDF or ePub with embedded citations, index, glossary, and bibliography.
+- Chapter structure: At least 10 chapters, including introduction, core technical sections, ethics/safety, and future outlook.
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+## Success Criteria
+
+- All claims MUST be verified against sources.
+- Zero plagiarism MUST be detected.
+- The content MUST pass fact-checking review by domain experts.
+- Positive feedback from beta readers or simulated peer review is expected.
+- Completeness: The guide MUST cover key subtopics like sensor fusion, locomotion algorithms, embodiment in AI, and humanoid design principles.
+- Reader engagement: The guide MUST achieve high readability scores and include practical exercises or projects.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+This Constitution supersedes all other project practices. Amendments require thorough documentation, approval by project stakeholders, and a clear migration plan for any affected processes or artifacts. All pull requests and code reviews MUST verify compliance with these principles.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 1.0.0 | **Ratified**: TODO(RATIFICATION_DATE): Needs to be set by the project owner. | **Last Amended**: 2025-12-08

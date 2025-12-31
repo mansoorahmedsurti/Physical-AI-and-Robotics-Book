@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git fetch:*)",
+      "Bash(mkdir:*)",
+      "Bash(.specify/scripts/powershell/check-prerequisites.ps1:*)",
+      "Bash(powershell.exe -File:*)",
+      "Bash(.specify/scripts/powershell/setup-plan.ps1:*)",
+      "Bash(.specify/scripts/bash/create-phr.sh:*)",
+      "Bash(git rev-parse:*)",
+      "Bash(ls:*)",
+      "Bash(mv:*)",
+      "Bash(colcon build:*)",
+      "Bash(npm install:*)",
+      "Bash(npm run docusaurus start:*)",
+      "Bash(npx docusaurus start:*)",
+      "Bash(echo:*)",
+      "Skill(sp.implement)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

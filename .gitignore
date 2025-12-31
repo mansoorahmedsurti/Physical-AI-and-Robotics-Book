@@ -1,0 +1,42 @@
+# Gitignore for multi-language project (Python, C++)
+
+# Python
+dist/
+*.egg-info/
+__pycache__/
+*.pyc
+*.pyd
+*.pyo
+.venv/
+venv/
+
+# C++
+bin/
+obj/
+out/
+build/
+*.o
+*.a
+*.so
+*.exe
+*.dll
+
+# IDE and OS generated files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Logs and temporary files
+*.log
+*.tmp
+
+# Environment variables
+.env
+.env.*
+
+# NVIDIA Isaac Sim files
+*.usd
+isaac-sim/
+_build/
+node_modules

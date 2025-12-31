@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+vend/
+dist/
+*.egg-info/
+
+# C++
+build/
+bin/
+obj/
+out/
+*.o
+*.so
+*.a
+*.exe
+*.dll
+*.log
+.env*
+
+# Docusaurus / Node.js
+node_modules/
+dist/
+.env*
+build/
+.docusaurus/
+.cache/
+
+# Universal
+.DS_Store
+Thumbs.db
+*.tmp
+*.swp
+.vscode/
+.idea/
+
+# ROS 2
+install/
+log/
+build/
+
+# Isaac Sim
+carb.log
+omni.log
+

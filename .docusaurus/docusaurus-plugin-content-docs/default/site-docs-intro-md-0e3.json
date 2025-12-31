@@ -1,0 +1,20 @@
+{
+  "id": "intro",
+  "title": "Introduction",
+  "description": "This is a standard Markdown introduction file.",
+  "source": "@site/docs/intro.md",
+  "sourceDirName": ".",
+  "slug": "/intro",
+  "permalink": "/docs/intro",
+  "draft": false,
+  "unlisted": false,
+  "editUrl": "https://github.com/your-org/your-repo/edit/main/docs/docs/intro.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "docs",
+  "previous": {
+    "title": "Welcome to My Book",
+    "permalink": "/docs/"
+  }
+}
