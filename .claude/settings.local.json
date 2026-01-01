@@ -19,7 +19,8 @@
       "Bash(npm run build:*)",
       "Skill(sp.git.commit_pr)",
       "Bash(git commit:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(git add:*)"
     ],
     "deny": [],
     "ask": []
