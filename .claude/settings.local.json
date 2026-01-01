@@ -15,7 +15,11 @@
       "Bash(npm run docusaurus start:*)",
       "Bash(npx docusaurus start:*)",
       "Bash(echo:*)",
-      "Skill(sp.implement)"
+      "Skill(sp.implement)",
+      "Bash(npm run build:*)",
+      "Skill(sp.git.commit_pr)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)"
     ],
     "deny": [],
     "ask": []

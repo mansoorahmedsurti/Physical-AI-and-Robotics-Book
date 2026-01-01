@@ -1,84 +1,89 @@
+// @ts-check
+// Note: type annotations allow type checking and IDEs autocompletion
 
-module.exports = {
+/** @type {import('@docusaurus/types').Config} */
+const config = {
   title: 'Physical AI & Humanoid Robotics',
   tagline: 'From ROS 2 to Isaac Sim: The Future of Embodied Intelligence.',
-  url: 'https://your-domain.com', // Replace with your actual domain
+  url: 'https://physical-ai-book.vercel.app',
   baseUrl: '/',
+  
+  // FIX 1: Prevent Vercel Crash
+  onBrokenLinks: 'warn', 
+  onBrokenMarkdownLinks: 'warn',
+  
   favicon: 'img/favicon.ico',
 
-  organizationName: 'your-org', // Replace with your GitHub organization name
-  projectName: 'your-repo',   // Replace with your GitHub repository name
+  // GitHub pages deployment config.
+  organizationName: 'mansoorahmedsurti', 
+  projectName: 'Physical-AI-and-Robotics-Book',
 
-  themeConfig: {
-    navbar: {
-      title: 'Physical AI & Humanoid Robotics',
-      logo: {
-        alt: 'Site Logo',
-        src: 'img/logo.svg', // Placeholder logo path, replace if you have one
-      },
-      items: [
-        {
-          type: 'doc',
-          docId: 'intro',
-          position: 'left',
-          label: 'Start Reading',
-        },
-        {
-          type: 'doc',
-          // This assumes you have a category named 'curriculum'.
-          // If not, adjust this ID or ensure the category exists.
-          docId: 'category/curriculum',
-          position: 'left',
-          label: 'Curriculum',
-        },
-        {
-          href: 'https://github.com/your-org/your-repo', // Replace with your actual GitHub repo URL
-          label: 'GitHub',
-          position: 'right',
-        },
-      ],
-    },
-    footer: {
-      style: 'dark',
-      links: [
-        {
-          title: 'Docs',
-          items: [
-            {
-              label: 'Start Reading',
-              to: '/docs/intro',
-            },
-            {
-              label: 'Curriculum',
-              to: '/docs/category/curriculum', // Placeholder
-            },
-          ],
-        },
-        // Add more footer links if needed
-      ],
-      copyright: \`Copyright © \${new Date().getFullYear()} Physical AI & Humanoid Robotics. Built with Docusaurus.\`,
-    },
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en'],
   },
 
   presets: [
     [
-      '@docusaurus/preset-classic',
-      {
+      'classic',
+      /** @type {import('@docusaurus/preset-classic').Options} */
+      ({
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
-          editUrl:
-            'https://github.com/your-org/your-repo/edit/main/docs/', // Update to your repo's edit URL
           routeBasePath: 'docs',
         },
-        blog: {
-          showReadingTime: true,
-          editUrl:
-            'https://github.com/your-org/your-repo/edit/main/blog/', // Update for blog if applicable
-        },
+        blog: false, 
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
-      },
+      }),
     ],
   ],
+
+  themeConfig:
+    /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
+    ({
+      navbar: {
+        title: 'Physical AI & Humanoid Robotics',
+        logo: {
+          alt: 'Robotics Logo',
+          src: 'img/logo.svg',
+        },
+        items: [
+          {
+            type: 'doc',
+            docId: 'intro',
+            position: 'left',
+            label: 'Start Reading',
+          },
+          {
+            href: 'https://github.com/mansoorahmedsurti/Physical-AI-and-Robotics-Book',
+            label: 'GitHub',
+            position: 'right',
+          },
+        ],
+      },
+      footer: {
+        style: 'dark',
+        links: [
+          {
+            title: 'Docs',
+            items: [
+              {
+                label: 'Start Reading',
+                to: '/docs/intro',
+              },
+            ],
+          },
+        ],
+        // FIX 2: Clean Copyright Line
+        copyright: `Copyright © ${new Date().getFullYear()} Physical AI & Humanoid Robotics. Built with Docusaurus.`,
+      },
+      prism: {
+        theme: require('prism-react-renderer').themes.github,
+        darkTheme: require('prism-react-renderer').themes.dracula,
+      },
+    }),
 };
+
+module.exports = config;
