@@ -1,1 +1,28 @@
-/* Add your custom CSS here */
+/* General dark mode and neon cyan theme */
+
+:root {
+  --ifm-color-primary: #00f3ff;
+  --ifm-color-primary-light: #00f3ff;
+  --ifm-color-primary-dark: #00f3ff;
+  --ifm-background-color: #1a1a1a;
+  --ifm-text-color: #ffffff;
+}
+
+/* Dark mode specific overrides */
+.dark-mode {
+  --ifm-background-color: #1a1a1a;
+  --ifm-text-color: #ffffff;
+}
+
+/* Optional: Add some specific element styling for a more robotic feel */
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+a {
+  color: var(--ifm-color-primary-light);
+}
+
+a:hover {
+  color: var(--ifm-color-primary-dark);
+}

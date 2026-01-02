@@ -47,7 +47,7 @@ const config = {
         title: 'Physical AI & Humanoid Robotics',
         logo: {
           alt: 'Robotics Logo',
-          src: 'main_logo.png',
+          src: 'img/main_logo.png',
         },
         items: [
           {
