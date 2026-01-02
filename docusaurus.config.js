@@ -52,7 +52,7 @@ const config = {
         items: [
           {
             type: 'doc',
-            docId: 'intro',
+            docId: 'API_DOCS',
             position: 'left',
             label: 'Start Reading',
           },
