@@ -32,7 +32,7 @@ This document outlines the key API endpoints and internal module interfaces for 
 
 - **Input**: Target pose (geometry_msgs/Pose) for inverse kinematics.
 - **Input**: Gripper command (boolean) for open/close.
-- **Output**: Joint angles (std::vector<double>) from IK solution.
+- **Output**: Joint angles (std::vector&lt;double&gt;) from IK solution.
 
 ## 7. Grasp Integration (vla_grasp_integrator.py)
 
@@ -46,4 +46,3 @@ This document outlines the key API endpoints and internal module interfaces for 
 - **Input**: Isaac Sim sensor data (internal, simulated).
 - **Output**: `vslam_pose` (geometry_msgs/PoseStamped) - Robot's pose.
 - **Output**: `vslam_odometry` (nav_msgs/Odometry) - Robot's odometry.
-
