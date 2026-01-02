@@ -1,6 +1,6 @@
 ---
 id: intro
-title: Introduction to Physical AI
+title: "Introduction to Physical AI"
 sidebar_label: Introduction
 slug: /intro
 ---

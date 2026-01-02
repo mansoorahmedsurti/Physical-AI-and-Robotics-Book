@@ -1,6 +1,6 @@
 ---
 id: module-3-isaac-sim
-title: Module 3: The AI-Robot Brain (NVIDIA Isaac Sim)
+title: "Module 3: The AI-Robot Brain (NVIDIA Isaac Sim)"
 sidebar_label: Module 3 - Isaac Sim
 ---
 

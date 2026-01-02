@@ -1,33 +1,42 @@
 ---
 id: module-1-ros2
-title: Module 1: The Robotic Nervous System (ROS 2)
+title: "Module 1: The Robotic Nervous System (ROS 2)"
 sidebar_label: Module 1 - ROS 2
 ---
 
 # Module 1: The Robotic Nervous System (ROS 2)
 
-## Introduction to ROS 2
+## 1. Introduction: The Nervous System of Robotics
 
-This module introduces the **Robot Operating System (ROS 2)** as the foundational "nervous system" for our physical AI projects. ROS 2 provides a standardized communication framework, tools, and libraries to build complex robotic applications. We will explore its core concepts, focusing on how different components of a robot system interact seamlessly.
+Just as a biological nervous system transmits signals between the brain (planning) and the muscles (actuation), a robot needs a robust middleware to communicate between its software components. **Robot Operating System 2 (ROS 2)** is that nervous system.
 
-## Key Concepts: Nodes, Topics, and Messages
+In this module, we move away from monolithic codebases—where one error crashes the whole robot—and adopt a **Distributed Node Architecture**.
 
-* **Nodes:** Independent executable processes within ROS 2. Each node is responsible for a specific function, such as controlling a motor, reading sensor data, or performing navigation tasks.
-* **Topics:** Named buses over which nodes exchange messages. Topics facilitate a **publish-subscribe** communication pattern, where one or more nodes can publish data to a topic, and other nodes can subscribe to that topic to receive the data.
-* **Messages:** Data structures used for communication between nodes over topics. Messages can contain various types of information, from simple integers and strings to complex sensor readings and control commands.
+### Why ROS 2? (vs. ROS 1)
+For the "Physical AI" era, we use ROS 2 because of three critical upgrades:
+1.  **DDS (Data Distribution Service):** Unlike ROS 1, which relied on a central "Master" node (a single point of failure), ROS 2 uses industry-standard DDS for decentralized communication.
+2.  **Real-Time Capabilities:** Essential for safety-critical tasks like humanoid balancing, where a millisecond delay can cause a fall.
+3.  **Python 3 First:** Native support for modern AI libraries (PyTorch, TensorFlow) which we will need for our VLA modules.
 
-## Building a Reflex Arc with ROS 2
 
-We will implement a basic "reflex arc" to demonstrate real-time interaction within ROS 2. This mimics the fundamental principle of biological reflex arcs (Stimulus → Processing → Response).
 
-### The Architecture:
-1. **Sensor Node:** A node that simulates or reads data from a sensor (e.g., a distance sensor).
-2. **Processing Node:** A node that subscribes to the sensor data topic, processes it (e.g., checks if an object is too close), and publishes a command.
-3. **Actuator Node:** A node that subscribes to the command topic and translates it into an action (e.g., stopping a robot motor).
+## 2. Key Concepts: The Anatomy of Communication
 
-### Implementation Snippet
-*In this section, we will eventually write a Python script using `rclpy` to create these three nodes and visualize their communication using `rqt_graph`.*
+To build our "Butler Bot," you must master these four primitives:
 
----
+* **Nodes:** Independent executable processes. Think of them as individual neurons. One node reads the camera, another controls the wheels.
+* **Topics:** The "veins" of the system. Nodes publish data to topics (e.g., `/camera/image_raw`) or subscribe to them. This is **asynchronous** (Fire-and-forget).
+* **Services:** A **synchronous** two-way handshake. "I request X, you give me Y." (e.g., "Spawn a new object" or "Reset Simulation").
+* **Actions:** Designed for long-running tasks. "Go to the kitchen." This takes time, so the robot provides feedback ("I am 50% there") and allows cancellation ("Stop!").
 
-**Next Step:** Once you have mastered these basics, proceed to **[Module 2: The Digital Twin](../Module_2_The_Digital_Twin_Gazebo_Unity/README.md)** to visualize this nervous system in a physics simulator.
+## 3. Implementation: Setting Up Your Reflex Arc
+
+We will implement a basic "reflex arc" to demonstrate real-time interaction. This mimics a biological withdrawal reflex: **Stimulus (Sensor) → Processing → Response (Motor).**
+
+### Step 1: Environment Setup
+First, we verify our ROS 2 installation. Open your terminal and source the underlay:
+
+```bash
+source /opt/ros/jazzy/setup.bash
+# Verify installation
+printenv | grep ROS

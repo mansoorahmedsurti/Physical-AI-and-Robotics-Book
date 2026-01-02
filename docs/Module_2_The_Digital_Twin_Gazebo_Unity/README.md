@@ -1,6 +1,6 @@
 ---
 id: module-2-digital-twin
-title: Module 2: The Digital Twin (Gazebo & Unity)
+title: "Module 2: The Digital Twin (Gazebo & Unity)"
 sidebar_label: Module 2 - Digital Twin
 ---
 

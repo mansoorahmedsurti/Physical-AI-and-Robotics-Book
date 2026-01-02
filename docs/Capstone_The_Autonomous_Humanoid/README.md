@@ -1,6 +1,6 @@
 ---
 id: capstone-autonomous-humanoid
-title: Capstone: The Autonomous Humanoid
+title: "Capstone: The Autonomous Humanoid"
 sidebar_label: Capstone Project
 ---
 

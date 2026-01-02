@@ -1,6 +1,6 @@
 ---
 id: module-4-vla
-title: Module 4: Vision-Language-Action (VLA)
+title: "Module 4: Vision-Language-Action (VLA)"
 sidebar_label: Module 4 - VLA
 ---
 
