@@ -1,3 +1,9 @@
+---
+id: API_DOCS
+title: API Documentation
+sidebar_label: API Docs
+---
+
 # Butler Bot API Endpoints and Internal Interfaces Documentation
 
 This document outlines the key API endpoints and internal module interfaces for the Butler Bot system.
