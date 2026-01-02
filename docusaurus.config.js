@@ -71,7 +71,7 @@ const config = {
             items: [
               {
                 label: 'Start Reading',
-                to: '/docs/intro',
+                to: '/docs/API_DOCS',
               },
             ],
           },
