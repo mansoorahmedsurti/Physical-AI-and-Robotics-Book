@@ -52,7 +52,7 @@ const config = {
         items: [
           {
             type: 'doc',
-            docId: 'API_DOCS',
+            docId: 'Capstone_The_Autonomous_Humanoid/docs/API_DOCS',
             position: 'left',
             label: 'Start Reading',
           },
