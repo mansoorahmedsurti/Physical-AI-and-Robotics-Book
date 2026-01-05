@@ -8,16 +8,41 @@
           "label": "Next",
           "isLast": true,
           "path": "/docs",
-          "mainDocId": "index",
+          "mainDocId": "Capstone_The_Autonomous_Humanoid/capstone-autonomous-humanoid",
           "docs": [
             {
-              "id": "index",
-              "path": "/docs/",
+              "id": "Capstone_The_Autonomous_Humanoid/capstone-autonomous-humanoid",
+              "path": "/docs/Capstone_The_Autonomous_Humanoid/",
               "sidebar": "docs"
             },
             {
-              "id": "intro",
+              "id": "Capstone_The_Autonomous_Humanoid/docs/API_DOCS",
+              "path": "/docs/Capstone_The_Autonomous_Humanoid/docs/API_DOCS",
+              "sidebar": "docs"
+            },
+            {
+              "id": "Intro/intro",
               "path": "/docs/intro",
+              "sidebar": "docs"
+            },
+            {
+              "id": "Module_1_The_Robotic_Nervous_System_ROS_2/module-1-ros2",
+              "path": "/docs/Module_1_The_Robotic_Nervous_System_ROS_2/",
+              "sidebar": "docs"
+            },
+            {
+              "id": "Module_2_The_Digital_Twin_Gazebo_Unity/module-2-digital-twin",
+              "path": "/docs/Module_2_The_Digital_Twin_Gazebo_Unity/",
+              "sidebar": "docs"
+            },
+            {
+              "id": "Module_3_The_AI_Robot_Brain_NVIDIA_Isaac/module-3-isaac-sim",
+              "path": "/docs/Module_3_The_AI_Robot_Brain_NVIDIA_Isaac/",
+              "sidebar": "docs"
+            },
+            {
+              "id": "Module_4_Vision_Language_Action_VLA/module-4-vla",
+              "path": "/docs/Module_4_Vision_Language_Action_VLA/",
               "sidebar": "docs"
             }
           ],
@@ -25,8 +50,8 @@
           "sidebars": {
             "docs": {
               "link": {
-                "path": "/docs/",
-                "label": "index"
+                "path": "/docs/Capstone_The_Autonomous_Humanoid/",
+                "label": "Capstone Project"
               }
             }
           }

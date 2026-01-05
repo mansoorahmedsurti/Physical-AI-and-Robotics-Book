@@ -42,26 +42,46 @@
       "plugin": "plugin---docusaurus-debugb-38-ad3"
     }
   },
-  "/docs-0cf": {
+  "/docs-00f": {
     "__comp": "__comp---theme-docs-root-5-e-9-0b6",
     "__context": {
       "plugin": "plugin---docsaba-d7c"
     }
   },
-  "/docs-33e": {
+  "/docs-acc": {
     "__comp": "__comp---theme-doc-version-roota-7-b-5de",
     "__props": "__props---docs-005-788"
   },
-  "/docs-d46": {
+  "/docs-8c6": {
     "__comp": "__comp---theme-doc-roota-94-67a"
   },
-  "/docs/-56e": {
+  "/docs/Capstone_The_Autonomous_Humanoid/-485": {
     "__comp": "__comp---theme-doc-item-178-a40",
-    "content": "content---docs-c-37-4d0"
+    "content": "content---docs-capstone-the-autonomous-humanoid-bce-8b5"
   },
-  "/docs/intro-a6e": {
+  "/docs/Capstone_The_Autonomous_Humanoid/docs/API_DOCS-2de": {
     "__comp": "__comp---theme-doc-item-178-a40",
-    "content": "content---docs-intro-0-e-3-be1"
+    "content": "content---docs-capstone-the-autonomous-humanoid-docs-api-doc-sed-3-f82"
+  },
+  "/docs/intro-2b5": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-introfd-2-7f7"
+  },
+  "/docs/Module_1_The_Robotic_Nervous_System_ROS_2/-61b": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-module-1-the-robotic-nervous-system-ros-2-a-19-bc1"
+  },
+  "/docs/Module_2_The_Digital_Twin_Gazebo_Unity/-3b2": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-module-2-the-digital-twin-gazebo-unity-e-5-a-ea3"
+  },
+  "/docs/Module_3_The_AI_Robot_Brain_NVIDIA_Isaac/-6c9": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-module-3-the-ai-robot-brain-nvidia-isaac-ef-1-215"
+  },
+  "/docs/Module_4_Vision_Language_Action_VLA/-292": {
+    "__comp": "__comp---theme-doc-item-178-a40",
+    "content": "content---docs-module-4-vision-language-action-vla-0-c-9-a3e"
   },
   "/-2e1": {
     "__comp": "__comp---site-src-pages-index-jsc-4-f-f99",

@@ -49,24 +49,55 @@ function Homepage() {
       description="The official documentation for Physical AI & Humanoid Robotics.">
       <HomepageHeader />
       <main>
-        <section style={{ padding: '2rem 0' }}>
-          <div className="container">
-            <div className="row">
-              <FeatureColumn
-                title="Robotic Operating System"
-                description="Deep dive into ROS 2 nodes and communication."
-              />
-              <FeatureColumn
-                title="Physical Simulation"
-                description="Training agents in NVIDIA Isaac Sim."
-              />
-              <FeatureColumn
-                title="VLA Models"
-                description="Integration of Vision-Language-Action models."
-              />
+        <div className="container" style={{ padding: '4rem 0' }}>
+          {/* CRITICAL: We change 'row' to 'featuresGrid' to activate your CSS */}
+          <div className="featuresGrid">
+            
+            {/* Card 1 */}
+            <div className="card">
+              <h3>Robotic Operating System</h3>
+              <p>Deep dive into ROS 2 nodes and communication.</p>
             </div>
+
+            {/* Card 2 */}
+            <div className="card">
+              <h3>Physical Simulation</h3>
+              <p>Training agents in NVIDIA Isaac Sim.</p>
+            </div>
+
+            {/* Card 3 */}
+            <div className="card">
+              <h3>VLA Models</h3>
+              <p>Integration of Vision-Language-Action models.</p>
+            </div>
+            {/* --- NEW ROW --- */}
+
+            {/* Card 4: Reinforcement Learning */}
+            <div className="card">
+              <h3>Gym & RL Training</h3>
+              <p>
+                Train robust walking policies using <strong>OmniIsaacGymEnvs</strong> and PPO/SAC algorithms.
+              </p>
+            </div>
+
+            {/* Card 5: Sim2Real Transfer */}
+            <div className="card">
+              <h3>Sim2Real Gap</h3>
+              <p>
+                Bridge the reality gap. Techniques to deploy simulation policies onto real <strong>physical hardware</strong>.
+              </p>
+            </div>
+
+            {/* Card 6: Edge Computing */}
+            <div className="card">
+              <h3>Edge Deployment</h3>
+              <p>
+                Optimize your nodes for <strong>NVIDIA Jetson Orin</strong>. Run heavy VLA models with low latency.
+              </p>
+            </div>
+
           </div>
-        </section>
+        </div>
       </main>
     </Layout>
   );

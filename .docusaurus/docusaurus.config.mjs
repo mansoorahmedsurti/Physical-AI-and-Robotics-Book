@@ -6,33 +6,45 @@
 export default {
   "title": "Physical AI & Humanoid Robotics",
   "tagline": "From ROS 2 to Isaac Sim: The Future of Embodied Intelligence.",
-  "url": "https://your-domain.com",
+  "url": "https://physical-ai-book.vercel.app",
   "baseUrl": "/",
+  "onBrokenLinks": "warn",
   "favicon": "img/favicon.ico",
-  "organizationName": "your-org",
-  "projectName": "your-repo",
+  "organizationName": "mansoorahmedsurti",
+  "projectName": "Physical-AI-and-Robotics-Book",
+  "i18n": {
+    "defaultLocale": "en",
+    "locales": [
+      "en"
+    ],
+    "path": "i18n",
+    "localeConfigs": {}
+  },
+  "presets": [
+    [
+      "classic",
+      {
+        "docs": {
+          "sidebarPath": "C:\\Users\\Administrator\\Desktop\\GIAIC_BOOK\\myBook\\sidebars.js",
+          "routeBasePath": "docs"
+        },
+        "blog": false,
+        "theme": {
+          "customCss": "C:\\Users\\Administrator\\Desktop\\GIAIC_BOOK\\myBook\\src\\css\\custom.css"
+        }
+      }
+    ]
+  ],
   "themeConfig": {
     "navbar": {
       "title": "Physical AI & Humanoid Robotics",
       "logo": {
-        "alt": "Site Logo",
-        "src": "img/logo.svg"
+        "alt": "Robotics Logo",
+        "src": "img/main_logo.png"
       },
       "items": [
         {
-          "type": "doc",
-          "docId": "intro",
-          "position": "left",
-          "label": "Start Reading"
-        },
-        {
-          "type": "doc",
-          "docId": "category/curriculum",
-          "position": "left",
-          "label": "Curriculum"
-        },
-        {
-          "href": "https://github.com/your-org/your-repo",
+          "href": "https://github.com/mansoorahmedsurti/Physical-AI-and-Robotics-Book",
           "label": "GitHub",
           "position": "right"
         }
@@ -41,22 +53,212 @@ export default {
     },
     "footer": {
       "style": "dark",
-      "links": [
-        {
-          "title": "Docs",
-          "items": [
-            {
-              "label": "Start Reading",
-              "to": "/docs/intro"
-            },
-            {
-              "label": "Curriculum",
-              "to": "/docs/category/curriculum"
+      "links": [],
+      "copyright": "Copyright © 2026 Physical AI & Humanoid Robotics. Built with Docusaurus by <a href=\"https://www.linkedin.com/in/mansoorahmedsurti/\" target=\"_blank\" rel=\"noopener noreferrer\">Mansoor Ahmed</a>."
+    },
+    "prism": {
+      "theme": {
+        "plain": {
+          "color": "#393A34",
+          "backgroundColor": "#f6f8fa"
+        },
+        "styles": [
+          {
+            "types": [
+              "comment",
+              "prolog",
+              "doctype",
+              "cdata"
+            ],
+            "style": {
+              "color": "#999988",
+              "fontStyle": "italic"
             }
-          ]
+          },
+          {
+            "types": [
+              "namespace"
+            ],
+            "style": {
+              "opacity": 0.7
+            }
+          },
+          {
+            "types": [
+              "string",
+              "attr-value"
+            ],
+            "style": {
+              "color": "#e3116c"
+            }
+          },
+          {
+            "types": [
+              "punctuation",
+              "operator"
+            ],
+            "style": {
+              "color": "#393A34"
+            }
+          },
+          {
+            "types": [
+              "entity",
+              "url",
+              "symbol",
+              "number",
+              "boolean",
+              "variable",
+              "constant",
+              "property",
+              "regex",
+              "inserted"
+            ],
+            "style": {
+              "color": "#36acaa"
+            }
+          },
+          {
+            "types": [
+              "atrule",
+              "keyword",
+              "attr-name",
+              "selector"
+            ],
+            "style": {
+              "color": "#00a4db"
+            }
+          },
+          {
+            "types": [
+              "function",
+              "deleted",
+              "tag"
+            ],
+            "style": {
+              "color": "#d73a49"
+            }
+          },
+          {
+            "types": [
+              "function-variable"
+            ],
+            "style": {
+              "color": "#6f42c1"
+            }
+          },
+          {
+            "types": [
+              "tag",
+              "selector",
+              "keyword"
+            ],
+            "style": {
+              "color": "#00009f"
+            }
+          }
+        ]
+      },
+      "darkTheme": {
+        "plain": {
+          "color": "#F8F8F2",
+          "backgroundColor": "#282A36"
+        },
+        "styles": [
+          {
+            "types": [
+              "prolog",
+              "constant",
+              "builtin"
+            ],
+            "style": {
+              "color": "rgb(189, 147, 249)"
+            }
+          },
+          {
+            "types": [
+              "inserted",
+              "function"
+            ],
+            "style": {
+              "color": "rgb(80, 250, 123)"
+            }
+          },
+          {
+            "types": [
+              "deleted"
+            ],
+            "style": {
+              "color": "rgb(255, 85, 85)"
+            }
+          },
+          {
+            "types": [
+              "changed"
+            ],
+            "style": {
+              "color": "rgb(255, 184, 108)"
+            }
+          },
+          {
+            "types": [
+              "punctuation",
+              "symbol"
+            ],
+            "style": {
+              "color": "rgb(248, 248, 242)"
+            }
+          },
+          {
+            "types": [
+              "string",
+              "char",
+              "tag",
+              "selector"
+            ],
+            "style": {
+              "color": "rgb(255, 121, 198)"
+            }
+          },
+          {
+            "types": [
+              "keyword",
+              "variable"
+            ],
+            "style": {
+              "color": "rgb(189, 147, 249)",
+              "fontStyle": "italic"
+            }
+          },
+          {
+            "types": [
+              "comment"
+            ],
+            "style": {
+              "color": "rgb(98, 114, 164)"
+            }
+          },
+          {
+            "types": [
+              "attr-name"
+            ],
+            "style": {
+              "color": "rgb(241, 250, 140)"
+            }
+          }
+        ]
+      },
+      "additionalLanguages": [],
+      "magicComments": [
+        {
+          "className": "theme-code-block-highlighted-line",
+          "line": "highlight-next-line",
+          "block": {
+            "start": "highlight-start",
+            "end": "highlight-end"
+          }
         }
-      ],
-      "copyright": "Copyright © 2025 Physical AI & Humanoid Robotics. Built with Docusaurus."
+      ]
     },
     "colorMode": {
       "defaultMode": "light",
@@ -76,181 +278,12 @@ export default {
       }
     },
     "metadata": [],
-    "prism": {
-      "additionalLanguages": [],
-      "theme": {
-        "plain": {
-          "color": "#bfc7d5",
-          "backgroundColor": "#292d3e"
-        },
-        "styles": [
-          {
-            "types": [
-              "comment"
-            ],
-            "style": {
-              "color": "rgb(105, 112, 152)",
-              "fontStyle": "italic"
-            }
-          },
-          {
-            "types": [
-              "string",
-              "inserted"
-            ],
-            "style": {
-              "color": "rgb(195, 232, 141)"
-            }
-          },
-          {
-            "types": [
-              "number"
-            ],
-            "style": {
-              "color": "rgb(247, 140, 108)"
-            }
-          },
-          {
-            "types": [
-              "builtin",
-              "char",
-              "constant",
-              "function"
-            ],
-            "style": {
-              "color": "rgb(130, 170, 255)"
-            }
-          },
-          {
-            "types": [
-              "punctuation",
-              "selector"
-            ],
-            "style": {
-              "color": "rgb(199, 146, 234)"
-            }
-          },
-          {
-            "types": [
-              "variable"
-            ],
-            "style": {
-              "color": "rgb(191, 199, 213)"
-            }
-          },
-          {
-            "types": [
-              "class-name",
-              "attr-name"
-            ],
-            "style": {
-              "color": "rgb(255, 203, 107)"
-            }
-          },
-          {
-            "types": [
-              "tag",
-              "deleted"
-            ],
-            "style": {
-              "color": "rgb(255, 85, 114)"
-            }
-          },
-          {
-            "types": [
-              "operator"
-            ],
-            "style": {
-              "color": "rgb(137, 221, 255)"
-            }
-          },
-          {
-            "types": [
-              "boolean"
-            ],
-            "style": {
-              "color": "rgb(255, 88, 116)"
-            }
-          },
-          {
-            "types": [
-              "keyword"
-            ],
-            "style": {
-              "fontStyle": "italic"
-            }
-          },
-          {
-            "types": [
-              "doctype"
-            ],
-            "style": {
-              "color": "rgb(199, 146, 234)",
-              "fontStyle": "italic"
-            }
-          },
-          {
-            "types": [
-              "namespace"
-            ],
-            "style": {
-              "color": "rgb(178, 204, 214)"
-            }
-          },
-          {
-            "types": [
-              "url"
-            ],
-            "style": {
-              "color": "rgb(221, 221, 221)"
-            }
-          }
-        ]
-      },
-      "magicComments": [
-        {
-          "className": "theme-code-block-highlighted-line",
-          "line": "highlight-next-line",
-          "block": {
-            "start": "highlight-start",
-            "end": "highlight-end"
-          }
-        }
-      ]
-    },
     "tableOfContents": {
       "minHeadingLevel": 2,
       "maxHeadingLevel": 3
     }
   },
-  "presets": [
-    [
-      "@docusaurus/preset-classic",
-      {
-        "docs": {
-          "sidebarPath": "C:\\Users\\Administrator\\Desktop\\GIAIC_BOOK\\myBook\\sidebars.js",
-          "editUrl": "https://github.com/your-org/your-repo/edit/main/docs/",
-          "routeBasePath": "docs"
-        },
-        "blog": {
-          "showReadingTime": true,
-          "editUrl": "https://github.com/your-org/your-repo/edit/main/blog/"
-        },
-        "theme": {
-          "customCss": "C:\\Users\\Administrator\\Desktop\\GIAIC_BOOK\\myBook\\src\\css\\custom.css"
-        }
-      }
-    ]
-  ],
   "baseUrlIssueBanner": true,
-  "i18n": {
-    "defaultLocale": "en",
-    "path": "i18n",
-    "locales": [
-      "en"
-    ],
-    "localeConfigs": {}
-  },
   "future": {
     "v4": {
       "removeLegacyPostBuildHeadAttribute": false,
@@ -272,7 +305,6 @@ export default {
     },
     "experimental_router": "browser"
   },
-  "onBrokenLinks": "throw",
   "onBrokenAnchors": "warn",
   "onDuplicateRoutes": "warn",
   "staticDirectories": [

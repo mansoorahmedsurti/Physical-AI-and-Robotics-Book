@@ -62,7 +62,7 @@ themeConfig:
         // Removed 'Docs' link item
         links: [],
         // FIX 2: Clean Copyright Line
-        copyright: `Copyright © ${new Date().getFullYear()} Physical AI & Humanoid Robotics. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Physical AI & Humanoid Robotics. Built with Docusaurus by <a href="https://mansoor--ahmed.vercel.app/" target="_blank" rel="noopener noreferrer">Mansoor Ahmed</a>.`,
       },
       prism: {
         theme: require('prism-react-renderer').themes.github,
