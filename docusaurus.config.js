@@ -7,15 +7,15 @@ const config = {
   tagline: 'From ROS 2 to Isaac Sim: The Future of Embodied Intelligence.',
   url: 'https://physical-ai-book.vercel.app',
   baseUrl: '/',
-  
+
   // FIX 1: Prevent Vercel Crash
-  onBrokenLinks: 'warn', 
+  onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
-  
+
   favicon: 'img/favicon.ico',
 
   // GitHub pages deployment config.
-  organizationName: 'mansoorahmedsurti', 
+  organizationName: 'mansoorahmedsurti',
   projectName: 'Physical-AI-and-Robotics-Book',
 
   i18n: {
@@ -32,7 +32,7 @@ const config = {
           sidebarPath: require.resolve('./sidebars.js'),
           routeBasePath: 'docs',
         },
-        blog: false, 
+        blog: false,
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
@@ -40,7 +40,7 @@ const config = {
     ],
   ],
 
-  themeConfig:
+themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
@@ -50,12 +50,6 @@ const config = {
           src: 'img/main_logo.png',
         },
         items: [
-          {
-            type: 'doc',
-            docId: 'Capstone_The_Autonomous_Humanoid/docs/API_DOCS',
-            position: 'left',
-            label: 'Start Reading',
-          },
           {
             href: 'https://github.com/mansoorahmedsurti/Physical-AI-and-Robotics-Book',
             label: 'GitHub',

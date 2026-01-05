@@ -18,8 +18,8 @@ function HomepageHeader() {
         <div className="buttons" style={{ display: 'flex', justifyContent: 'center', gap: '1rem' }}>
           <Link
             className="button button--primary button--lg"
-            to="/docs/intro">
-            Start Learning
+            to="/">
+            Get Started
           </Link>
           <Link
             className="button button--secondary button--lg"
