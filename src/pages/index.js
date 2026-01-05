@@ -56,19 +56,19 @@ function Homepage() {
             {/* Card 1 */}
             <div className="card">
               <h3>Robotic Operating System</h3>
-              <p>Deep dive into ROS 2 nodes and communication.</p>
+              <p>Deep dive into <strong>ROS 2</strong> nodes and communication.</p>
             </div>
 
             {/* Card 2 */}
             <div className="card">
               <h3>Physical Simulation</h3>
-              <p>Training agents in NVIDIA Isaac Sim.</p>
+              <p>Training agents in <strong>NVIDIA Isaac Sim</strong>.</p>
             </div>
 
             {/* Card 3 */}
             <div className="card">
               <h3>VLA Models</h3>
-              <p>Integration of Vision-Language-Action models.</p>
+              <p>Integration of <strong>Vision-Language-Action</strong> models.</p>
             </div>
             {/* --- NEW ROW --- */}
 
