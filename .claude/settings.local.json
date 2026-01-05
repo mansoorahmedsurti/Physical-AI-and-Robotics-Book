@@ -20,7 +20,8 @@
       "Skill(sp.git.commit_pr)",
       "Bash(git commit:*)",
       "Bash(git push:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Skill(sp.analyze)"
     ],
     "deny": [],
     "ask": []
