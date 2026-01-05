@@ -110,3 +110,37 @@ body {
 .row > .col {
   padding: 1rem; /* Adjust padding for gap */
 }
+
+/* FIX: Prevent "Brown Bar" / Background Bleed on Zoom */
+html, body {
+  background-color: #0b1120 !important; /* Forces the Deep Navy background everywhere */
+  height: 100%; /* Ensures the canvas fills the screen */
+  margin: 0;
+  padding: 0;
+}
+
+/* Optional: Make footer stick to bottom if content is short */
+#__docusaurus {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* src/css/custom.css */
+
+.featuresGrid {
+  display: grid;
+  /* Default: Use the flexible logic (good for mobile/tablet) */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  width: 100%;
+}
+
+/* FORCE 3 COLUMNS on Desktop */
+@media screen and (min-width: 996px) {
+  .featuresGrid {
+    /* This overrides the auto-fit rule to strictly force 3 columns */
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
