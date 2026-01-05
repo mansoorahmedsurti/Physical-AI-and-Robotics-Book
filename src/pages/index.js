@@ -22,7 +22,7 @@ function HomepageHeader() {
             Get Started
           </Link>
           <Link
-            className="button button--secondary button--lg"
+            className="button button--secondary button--lg" style="color: white;"
             to="https://github.com/anthropics/claude-code">
             View on GitHub
           </Link>
@@ -34,7 +34,7 @@ function HomepageHeader() {
 
 function FeatureColumn({title, description}) {
   return (
-    <div className='col col--4 text--center padding-horiz--md card'>
+    <div className='col col--4 text--center padding-horiz--md card' style={{ margin: '1rem' }}>
       <h3 style={{ color: '#3b82f6', marginBottom: '0.75rem' }}>{title}</h3>
       <p style={{ color: '#e5e7eb' }}>{description}</p>
     </div>

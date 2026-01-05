@@ -59,17 +59,8 @@ themeConfig:
       },
       footer: {
         style: 'dark',
-        links: [
-          {
-            title: 'Docs',
-            items: [
-              {
-                label: 'Start Reading',
-                to: '/docs/API_DOCS',
-              },
-            ],
-          },
-        ],
+        // Removed 'Docs' link item
+        links: [],
         // FIX 2: Clean Copyright Line
         copyright: `Copyright © ${new Date().getFullYear()} Physical AI & Humanoid Robotics. Built with Docusaurus.`,
       },
