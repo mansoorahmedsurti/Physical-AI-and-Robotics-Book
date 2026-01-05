@@ -39,4 +39,4 @@ First, we verify our ROS 2 installation. Open your terminal and source the under
 ```bash
 source /opt/ros/jazzy/setup.bash
 # Verify installation
-printenv | grep ROS
+printenv | grep ROS 
