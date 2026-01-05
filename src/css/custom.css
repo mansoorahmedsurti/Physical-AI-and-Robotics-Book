@@ -5,6 +5,7 @@
   --card-background: rgba(255, 255, 255, 0.1);
   --card-border: rgba(255, 255, 255, 0.2);
   --card-glow: rgba(59, 130, 246, 0.4);
+  --navbar-footer-background: #111a2c; /* Darker blue for navbar and footer */
 }
 
 body {
@@ -60,7 +61,7 @@ body {
 .button--secondary {
   background-color: transparent;
   border: 2px solid var(--primary-accent);
-  color: var(--primary-accent);
+  color: white; /* Changed to white */
 }
 
 .button--secondary:hover {
@@ -86,4 +87,26 @@ body {
 
 .card p {
   color: #e5e7eb;
+}
+
+/* Navbar and Footer Styling */
+.navbar,
+.footer {
+  background-color: var(--navbar-footer-background) !important;
+}
+
+.navbar__link:hover,
+.footer__link:hover {
+  color: var(--primary-accent);
+}
+
+/* Adjust logo size */
+.navbar__logo {
+  height: 50px; /* Adjust height as needed */
+  width: auto;
+}
+
+/* Add gap to cards */
+.row > .col {
+  padding: 1rem; /* Adjust padding for gap */
 }
