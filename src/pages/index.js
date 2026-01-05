@@ -4,26 +4,24 @@ import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 
+// This function builds the Header section
 function HomepageHeader() {
   const {siteConfig} = useDocusaurusContext();
   return (
-    <header className="hero hero--primary hero--centered" style={{ padding: '4rem 0' }}>
+    // 'heroBanner' connects to your CSS .heroBanner class
+    <header className="heroBanner">
       <div className="container">
-        <h1 className="hero__title" style={{ fontSize: '5rem', background: 'linear-gradient(45deg, #3b82f6, #1e3a8a)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', color: 'transparent', marginBottom: '1rem' }}>
-          Physical AI & Humanoid Robotics
-        </h1>
-        <p className="hero__subtitle" style={{ color: '#d1d5db', fontSize: '1.25rem', marginBottom: '2rem' }}>
-          From ROS 2 to Isaac Sim: The Future of Embodied Intelligence
-        </p>
-        <div className="buttons" style={{ display: 'flex', justifyContent: 'center', gap: '1rem' }}>
+        <h1 className="heroTitle">{siteConfig.title}</h1>
+        <p className="heroSubtitle">{siteConfig.tagline}</p>
+        <div className="buttons">
           <Link
             className="button button--primary button--lg"
-            to="/">
-            Get Started
+            to="/docs/Intro">
+            Start Learning 🚀
           </Link>
           <Link
-            className="button button--secondary button--lg" style={{ color: 'white' }}
-            to="https://github.com/anthropics/claude-code">
+            className="button button--secondary button--lg"
+            to="https://github.com/mansoorahmedsurti/Physical-AI-and-Robotics-Book">
             View on GitHub
           </Link>
         </div>
@@ -32,44 +30,46 @@ function HomepageHeader() {
   );
 }
 
-function FeatureColumn({title, description}) {
-  return (
-    <div className='col col--4 text--center padding-horiz--md card' style={{ margin: '1rem' }}>
-      <h3 style={{ color: '#3b82f6', marginBottom: '0.75rem' }}>{title}</h3>
-      <p style={{ color: '#e5e7eb' }}>{description}</p>
-    </div>
-  );
-}
-
-function Homepage() {
+export default function Home() {
   const {siteConfig} = useDocusaurusContext();
   return (
     <Layout
-      title={`Home - ${siteConfig.title}`}
-      description="The official documentation for Physical AI & Humanoid Robotics.">
+      title={`Hello from ${siteConfig.title}`}
+      description="The Ultimate Guide to Physical AI and Humanoid Robotics">
       <HomepageHeader />
       <main>
-        <section style={{ padding: '2rem 0' }}>
-          <div className="container">
-            <div className="row">
-              <FeatureColumn
-                title="Robotic Operating System"
-                description="Deep dive into ROS 2 nodes and communication."
-              />
-              <FeatureColumn
-                title="Physical Simulation"
-                description="Training agents in NVIDIA Isaac Sim."
-              />
-              <FeatureColumn
-                title="VLA Models"
-                description="Integration of Vision-Language-Action models."
-              />
+        {/* 'featuresSection' connects to your CSS padding */}
+        <section className="featuresSection">
+          {/* 'featuresGrid' connects to your CSS Grid layout */}
+          <div className="featuresGrid">
+            
+            {/* Card 1 */}
+            <div className="featureCard">
+              <h3>🤖 The Nervous System</h3>
+              <p>
+                Master <strong>ROS 2 Jazzy</strong>. Learn how to build distributed node architectures that act as the nervous system for your humanoid robot.
+              </p>
             </div>
+
+            {/* Card 2 */}
+            <div className="featureCard">
+              <h3>🧠 The Digital Brain</h3>
+              <p>
+                Train your agents in <strong>NVIDIA Isaac Sim</strong>. Use photorealistic digital twins to safely train complex behaviors before deployment.
+              </p>
+            </div>
+
+            {/* Card 3 */}
+            <div className="featureCard">
+              <h3>👁️ Vision-Language-Action</h3>
+              <p>
+                Integrate <strong>LLMs and VLA models</strong>. Teach your robot to understand natural language commands and execute physical tasks.
+              </p>
+            </div>
+
           </div>
         </section>
       </main>
     </Layout>
   );
 }
-
-export default Homepage;
