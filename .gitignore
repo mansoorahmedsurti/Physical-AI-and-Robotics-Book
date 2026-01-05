@@ -45,3 +45,16 @@ Thumbs.db
 *.tmp
 .env
 .env*
+
+# --- Testing & Quality ---
+.pytest_cache/
+.coverage
+htmlcov/
+
+# --- ROS 2 (Colcon specific) ---
+.colcon/
+COLCON_IGNORE
+
+# --- Windows specific ---
+*.swp
+desktop.ini

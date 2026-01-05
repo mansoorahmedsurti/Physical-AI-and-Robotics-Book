@@ -22,7 +22,7 @@ function HomepageHeader() {
             Get Started
           </Link>
           <Link
-            className="button button--secondary button--lg" style="color: white;"
+            className="button button--secondary button--lg" style={{ color: 'white' }}
             to="https://github.com/anthropics/claude-code">
             View on GitHub
           </Link>

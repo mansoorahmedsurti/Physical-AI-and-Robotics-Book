@@ -37,4 +37,4 @@ To follow along with the exercises and projects in this book, you will need the 
 ---
 
 ### Ready to Start?
-Proceed to **[Module 1: The Robotic Nervous System](./Module_1_The_Robotic_Nervous_System_ROS_2/README.md)** to begin building your first distributed nodes.
+Proceed to **[Module 1: The Robotic Nervous System](../Module_1_The_Robotic_Nervous_System_ROS_2/README.md)** to begin building your first distributed nodes.
