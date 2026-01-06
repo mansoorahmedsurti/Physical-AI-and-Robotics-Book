@@ -21,7 +21,8 @@
       "Bash(git commit:*)",
       "Bash(git push:*)",
       "Bash(git add:*)",
-      "Skill(sp.analyze)"
+      "Skill(sp.analyze)",
+      "Bash(npm --version)"
     ],
     "deny": [],
     "ask": []

@@ -6,7 +6,7 @@
 export default {
   "title": "Physical AI & Humanoid Robotics",
   "tagline": "From ROS 2 to Isaac Sim: The Future of Embodied Intelligence.",
-  "url": "https://physical-ai-book.vercel.app",
+  "url": "https://robotics-book-by-mansoor.vercel.app",
   "baseUrl": "/",
   "onBrokenLinks": "warn",
   "favicon": "img/favicon.ico",
@@ -54,7 +54,7 @@ export default {
     "footer": {
       "style": "dark",
       "links": [],
-      "copyright": "Copyright © 2026 Physical AI & Humanoid Robotics. Built with Docusaurus by <a href=\"https://www.linkedin.com/in/mansoorahmedsurti/\" target=\"_blank\" rel=\"noopener noreferrer\">Mansoor Ahmed</a>."
+      "copyright": "Copyright © 2026 Physical AI & Humanoid Robotics. Built with Docusaurus by <a href=\"https://mansoor--ahmed.vercel.app/\" target=\"_blank\" rel=\"noopener noreferrer\">Mansoor Ahmed</a>."
     },
     "prism": {
       "theme": {

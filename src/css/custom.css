@@ -33,6 +33,7 @@ body {
   background-clip: text;
   color: transparent;
   margin-bottom: 1rem;
+  line-height: 1.1;
 }
 
 .hero__subtitle {
@@ -45,6 +46,57 @@ body {
   display: flex;
   justify-content: center;
   gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Responsive adjustments for hero section */
+@media screen and (max-width: 996px) {
+  .hero {
+    padding: 2rem 0;
+  }
+
+  .hero__title {
+    font-size: 3rem;
+  }
+
+  .hero__subtitle {
+    font-size: 1.1rem;
+  }
+
+  .buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .button {
+    width: 100%;
+    max-width: 300px;
+    margin-bottom: 0.5rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .hero__title {
+    font-size: 2.5rem;
+  }
+
+  .hero__subtitle {
+    font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .hero__title {
+    font-size: 2rem;
+  }
+
+  .hero__subtitle {
+    font-size: 0.9rem;
+  }
+
+  .hero {
+    padding: 1.5rem 0;
+  }
 }
 
 .button--primary {
@@ -61,7 +113,7 @@ body {
 .button--secondary {
   background-color: transparent;
   border: 2px solid var(--primary-accent);
-  color: white; /* Changed to white */
+  color: white !important; /* Ensuring white color */
 }
 
 .button--secondary:hover {
@@ -95,9 +147,14 @@ body {
   background-color: var(--navbar-footer-background) !important;
 }
 
+.navbar__brand,
 .navbar__link:hover,
 .footer__link:hover {
-  color: var(--primary-accent);
+  color: white !important;
+}
+
+.navbar__link {
+  color: white;
 }
 
 /* Adjust logo size */
@@ -135,6 +192,7 @@ html, body {
   gap: 2rem;
   max-width: 1200px;
   width: 100%;
+  margin: 0 auto;
 }
 
 /* FORCE 3 COLUMNS on Desktop */
@@ -142,5 +200,37 @@ html, body {
   .featuresGrid {
     /* This overrides the auto-fit rule to strictly force 3 columns */
     grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Additional responsive adjustments for features grid */
+@media screen and (max-width: 996px) {
+  .featuresGrid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    padding: 0 1rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .featuresGrid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .card {
+    margin: 0.5rem;
+  }
+}
+
+/* Adjust card padding for smaller screens */
+@media screen and (max-width: 480px) {
+  .card {
+    padding: 1rem;
+  }
+
+  .featuresGrid {
+    gap: 1rem;
+    padding: 0 0.5rem;
   }
 }

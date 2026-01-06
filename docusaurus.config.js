@@ -5,7 +5,7 @@
 const config = {
   title: 'Physical AI & Humanoid Robotics',
   tagline: 'From ROS 2 to Isaac Sim: The Future of Embodied Intelligence.',
-  url: 'https://physical-ai-book.vercel.app',
+  url: 'https://robotics-book-by-mansoor.vercel.app',
   baseUrl: '/',
 
   // FIX 1: Prevent Vercel Crash
