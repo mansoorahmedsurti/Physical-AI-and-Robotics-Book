@@ -1,14 +1,16 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Depends
 from uuid import UUID
 from ..models.chat import QueryRequest, QueryResponse, ConversationCreate
 from ..services.chat_service import chat_service
 from ..database import db
 from ..utils import logger
+from ..auth import auth_service
+from ..models.user import UserInDB
 
 router = APIRouter()
 
 @router.post("/chat/", response_model=QueryResponse, tags=["chat"])
-async def chat(query_request: QueryRequest):
+async def chat(query_request: QueryRequest, current_user: UserInDB = Depends(auth_service.get_current_user)):
     """
     Send a message and get a RAG-enhanced response
     """
@@ -16,7 +18,8 @@ async def chat(query_request: QueryRequest):
         result = await chat_service.get_answer(
             query=query_request.message,
             conversation_id=query_request.conversation_id,
-            temperature=query_request.temperature
+            temperature=query_request.temperature,
+            user_id=current_user.id
         )
 
         response = QueryResponse(
@@ -33,13 +36,13 @@ async def chat(query_request: QueryRequest):
 
 
 @router.post("/chat/conversation/", tags=["chat"])
-async def create_conversation(conversation_create: ConversationCreate = None):
+async def create_conversation(conversation_create: ConversationCreate = None, current_user: UserInDB = Depends(auth_service.get_current_user)):
     """
     Start a new conversation
     """
     try:
         title = conversation_create.title if conversation_create else None
-        conversation_id = await chat_service.create_conversation(title=title)
+        conversation_id = await chat_service.create_conversation(title=title, user_id=current_user.id)
 
         return {
             "conversation_id": conversation_id,
@@ -52,7 +55,7 @@ async def create_conversation(conversation_create: ConversationCreate = None):
 
 
 @router.get("/chat/conversation/{conversation_id}", tags=["chat"])
-async def get_conversation_history(conversation_id: str):
+async def get_conversation_history(conversation_id: str, current_user: UserInDB = Depends(auth_service.get_current_user)):
     """
     Get conversation history
     """
@@ -64,6 +67,15 @@ async def get_conversation_history(conversation_id: str):
             raise HTTPException(status_code=400, detail="Invalid conversation ID format")
 
         async with db.pool.acquire() as conn:
+            # Check if the conversation belongs to the current user
+            conversation = await conn.fetchrow("""
+                SELECT * FROM conversations
+                WHERE id = $1 AND (user_id = $2 OR user_id IS NULL)
+            """, conversation_id, current_user.id)
+
+            if not conversation:
+                raise HTTPException(status_code=404, detail="Conversation not found or access denied")
+
             # Get messages for the conversation
             messages = await conn.fetch("""
                 SELECT * FROM messages

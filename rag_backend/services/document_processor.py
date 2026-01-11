@@ -3,10 +3,15 @@ import tempfile
 from typing import List, Dict, Any, Tuple
 from pathlib import Path
 import PyPDF2
-from ..utils import logger, InvalidDocumentException
-from ..services.qdrant_service import qdrant_service
-from ..services.embedding_service import EmbeddingService
-from ..config import settings
+from docx import Document as DocxDocument
+from PIL import Image
+import pytesseract
+from io import BytesIO
+import json
+from utils import logger, InvalidDocumentException
+from services.qdrant_service import qdrant_service
+from services.embedding_service import EmbeddingService
+from config import settings
 
 class DocumentProcessor:
     def __init__(self):
@@ -78,7 +83,11 @@ class DocumentProcessor:
 
             if file_extension == '.pdf':
                 content = self._extract_text_from_pdf(file_path)
-            elif file_extension in ['.txt', '.md', '.py', '.js', '.html', '.css']:
+            elif file_extension == '.docx':
+                content = self._extract_text_from_docx(file_path)
+            elif file_extension in ['.jpg', '.jpeg', '.png', '.bmp', '.tiff', '.webp']:
+                content = self._extract_text_from_image(file_path)
+            elif file_extension in ['.txt', '.md', '.py', '.js', '.html', '.css', '.json', '.xml', '.csv']:
                 with open(file_path, 'r', encoding='utf-8') as file:
                     content = file.read()
             else:
@@ -99,12 +108,74 @@ class DocumentProcessor:
         try:
             with open(pdf_path, 'rb') as file:
                 pdf_reader = PyPDF2.PdfReader(file)
-                for page in pdf_reader.pages:
-                    text += page.extract_text() + "\n"
+                for page_num, page in enumerate(pdf_reader.pages):
+                    try:
+                        text += page.extract_text() + "\n"
+                    except Exception as e:
+                        logger.warning(f"Could not extract text from page {page_num} of {pdf_path}: {str(e)}")
+                        # Try alternative method for scanned PDFs using OCR
+                        text += self._ocr_pdf_page(pdf_path, page_num) + "\n"
         except Exception as e:
             logger.error(f"Error extracting text from PDF {pdf_path}: {str(e)}")
             raise
         return text
+
+    def _ocr_pdf_page(self, pdf_path: str, page_num: int) -> str:
+        """
+        Extract text from a PDF page using OCR (for scanned PDFs)
+        """
+        try:
+            # Import pdf2image if available
+            from pdf2image import convert_from_path
+
+            # Convert PDF page to image
+            pages = convert_from_path(pdf_path, first_page=page_num+1, last_page=page_num+1)
+
+            if pages:
+                # Perform OCR on the image
+                text = pytesseract.image_to_string(pages[0])
+                return text
+            else:
+                return ""
+        except ImportError:
+            logger.warning("pdf2image not installed. Install with 'pip install pdf2image' for OCR support.")
+            return ""
+        except Exception as e:
+            logger.warning(f"OCR failed for page {page_num} of {pdf_path}: {str(e)}")
+            return ""
+
+    def _extract_text_from_docx(self, docx_path: str) -> str:
+        """
+        Extract text from a DOCX file
+        """
+        try:
+            doc = DocxDocument(docx_path)
+            text = []
+            for paragraph in doc.paragraphs:
+                text.append(paragraph.text)
+
+            # Also extract from tables if present
+            for table in doc.tables:
+                for row in table.rows:
+                    for cell in row.cells:
+                        text.append(cell.text)
+
+            return '\n'.join(text)
+        except Exception as e:
+            logger.error(f"Error extracting text from DOCX {docx_path}: {str(e)}")
+            raise
+
+    def _extract_text_from_image(self, image_path: str) -> str:
+        """
+        Extract text from an image file using OCR
+        """
+        try:
+            image = Image.open(image_path)
+            text = pytesseract.image_to_string(image)
+            return text
+        except Exception as e:
+            logger.error(f"Error extracting text from image {image_path}: {str(e)}")
+            raise
 
 # Global document processor instance
 document_processor = DocumentProcessor()

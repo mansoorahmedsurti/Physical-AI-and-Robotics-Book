@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dir C:UsersAdministratorDesktopGIAIC_BOOKmyBookrag_backend /s)",
+      "Bash(dir \"C:\\\\Users\\\\Administrator\\\\Desktop\\\\GIAIC_BOOK\\\\myBook\\\\rag_backend\" /s)",
+      "Bash(pip install python-docx pdf2image pytesseract pillow)",
+      "Bash(pip install sentence-transformers)",
+      "Bash(pip install --user sentence-transformers)",
+      "Bash(pip install beautifulsoup4)",
+      "Bash(python ingest.py \"C:\\\\Users\\\\Administrator\\\\Desktop\\\\GIAIC_BOOK\\\\Content\\(for Qdrant\\)\")",
+      "Bash(python simple_ingest.py \"C:\\\\Users\\\\Administrator\\\\Desktop\\\\GIAIC_BOOK\\\\Content\\(for Qdrant\\)\")",
+      "Bash(dir *.env)",
+      "Bash(python standalone_ingest.py \"C:\\\\Users\\\\Administrator\\\\Desktop\\\\GIAIC_BOOK\\\\Content\\(for Qdrant\\)\")",
+      "Bash(python ingest.py --help)",
+      "Bash(python -c \"import database; print\\(''Database import successful''\\)\")",
+      "Bash(python -c \"import services.document_processor; print\\(''Document processor import successful''\\)\")",
+      "Bash(python -m py_compile ingest.py)",
+      "Bash(python -c \"import sys; sys.argv = [''ingest.py'']; import importlib.util; spec = importlib.util.spec_from_file_location\\(''ingest'', ''ingest.py''\\); module = importlib.util.module_from_spec\\(spec\\); spec.loader.exec_module\\(module\\); print\\(''Ingest script imported successfully''\\)\")",
+      "Bash(python ingest.py \"C:\\\\Users\\\\Administrator\\\\Desktop\\\\GIAIC_BOOK\\\\Content\\(for Qdrant\\)\\\\Intro\\\\README.md\")"
+    ]
+  }
+}

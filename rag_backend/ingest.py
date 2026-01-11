@@ -1,68 +1,113 @@
-import asyncio
 import sys
 import os
+import asyncio
 from pathlib import Path
+import platform
 
-# Add the rag_backend directory to the Python path
-sys.path.insert(0, str(Path(__file__).parent))
+# ==========================================
+# 🚑 CRITICAL FIX FOR YOUR BROKEN WINDOWS
+# ==========================================
+# This function forces Python to STOP asking Windows for its version.
+# This prevents the freeze/crash you are seeing.
+def fake_win32_ver(*args, **kwargs):
+    return ('10', '10.0.19041', 'SP0', 'Multiprocessor Free')
 
-from config import settings
-from database import db
-from services.document_processor import document_processor
-from services.qdrant_service import qdrant_service
+platform.win32_ver = fake_win32_ver
+# ==========================================
 
-async def main():
-    if len(sys.argv) != 2:
-        print("Usage: python ingest.py <path_to_document>")
-        sys.exit(1)
+# Setup paths
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
-    document_path = sys.argv[1]
-    if not os.path.exists(document_path):
-        print(f"Error: File {document_path} does not exist")
-        sys.exit(1)
+try:
+    from config import settings
+    from database import db
+    from services.document_processor import document_processor
+    from services.qdrant_service import qdrant_service
+except ImportError as e:
+    print(f"❌ CRITICAL IMPORT ERROR: {e}")
+    sys.exit(1)
 
-    print(f"Starting ingestion of document: {document_path}")
+async def process_directory(directory_path):
+    print(f"\n📂 Scanning directory: {directory_path}")
+    
+    ignore_extensions = ['.py', '.pyc', '.js', '.json', '.css', '.html', '.env', '.gitignore']
+    tasks = []
+    
+    for root, dirs, files in os.walk(directory_path):
+        for file in files:
+            file_path = os.path.join(root, file)
+            file_ext = Path(file_path).suffix.lower()
+            
+            # Filter for valid docs
+            if file_ext in ignore_extensions: continue
+            valid_exts = ['.md', '.txt', '.pdf', '.docx']
+            if file_ext not in valid_exts: continue
+                
+            print(f"   found: {file}")
+            tasks.append(process_single_file(file_path))
 
+    if not tasks:
+        print("❌ No valid documents found!")
+        return
+
+    print(f"\n🚀 Found {len(tasks)} documents. Starting ingestion...")
+    await asyncio.gather(*tasks)
+
+async def process_single_file(file_path):
+    filename = os.path.basename(file_path)
     try:
-        # Connect to database
-        await db.connect()
-        print("Connected to database")
-
-        # Create document record in database
-        file_size = os.path.getsize(document_path)
-        file_ext = Path(document_path).suffix.lower()
-
+        file_size = os.path.getsize(file_path)
+        
+        # 1. Neon DB
+        print(f"   Creating DB record for {filename}...")
         document_data = {
-            'filename': os.path.basename(document_path),
-            'original_name': os.path.basename(document_path),
-            'content_type': f'application/{file_ext[1:]}' if file_ext else 'application/octet-stream',
+            'filename': filename,
+            'original_name': filename,
+            'content_type': 'text/markdown',
             'size_bytes': file_size,
             'status': 'processing',
-            'metadata': {}
+            'metadata': {"source": "local_ingest"}
         }
-
         document_id = await db.create_document(document_data)
-        print(f"Created document record with ID: {document_id}")
-
-        # Process the document and generate chunks with embeddings using the file path
-        processed_chunks = await document_processor.process_file(document_path)
-        print(f"Processed document into {len(processed_chunks)} chunks")
-
-        # Store embeddings in Qdrant
-        point_ids = await qdrant_service.store_embeddings(document_id, processed_chunks)
-        print(f"Stored embeddings in Qdrant")
-
-        # Update document status to completed
+        
+        # 2. Chunking
+        print(f"   Chunking {filename}...")
+        chunks = await document_processor.process_file(file_path)
+        
+        # 3. Qdrant
+        print(f"   Uploading {filename} to Qdrant...")
+        await qdrant_service.store_embeddings(document_id, chunks)
+        
+        # 4. Finish
         await db.update_document_status(document_id, 'completed')
-        print(f"Document {document_id} ingestion completed successfully")
+        print(f"✅ COMPLETED: {filename}")
 
     except Exception as e:
-        print(f"Error during ingestion: {str(e)}")
-        if 'document_id' in locals():
-            await db.update_document_status(document_id, 'failed')
-        sys.exit(1)
-    finally:
-        await db.disconnect()
+        print(f"❌ FAILED: {filename} | Error: {str(e)}")
+
+async def main():
+    print("🔍 DEBUG: Starting manual ingestion...")
+    try:
+        await db.connect()
+        print("✅ Database Connected!")
+    except Exception as e:
+        print(f"❌ DATABASE ERROR: {e}")
+        return
+
+    if len(sys.argv) < 2:
+        print("Usage: python ingest.py <folder_path>")
+        return
+
+    target_path = sys.argv[1]
+    target_path = target_path.strip('"').strip("'")
+
+    if os.path.isdir(target_path):
+        await process_directory(target_path)
+    else:
+        await process_single_file(target_path)
+
+    await db.disconnect()
+    print("👋 Done.")
 
 if __name__ == "__main__":
     asyncio.run(main())

@@ -6,8 +6,10 @@ from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.requests import Request
 import time
 import logging
-from .api import documents, chat, health
+from .api import documents, chat, health, auth, monitoring, bulk_upload
 from .utils import logger
+from .rate_limit import check_rate_limit
+from .monitoring import record_request_duration, record_error
 
 def create_app():
     app = FastAPI(
@@ -25,7 +27,24 @@ def create_app():
         allow_headers=["*"],
     )
 
-    # Add request logging middleware
+    # Add rate limiting middleware
+    @app.middleware("http")
+    async def rate_limit_middleware(request: Request, call_next):
+        # Skip rate limiting for certain endpoints
+        if request.url.path.startswith('/health'):
+            response = await call_next(request)
+            return response
+
+        # Get client IP address
+        client_ip = request.client.host
+
+        # Apply rate limiting (100 requests per hour per IP)
+        check_rate_limit(client_ip, max_requests=100, window_seconds=3600)
+
+        response = await call_next(request)
+        return response
+
+    # Add request logging and metrics middleware
     @app.middleware("http")
     async def log_requests(request: Request, call_next):
         start_time = time.time()
@@ -33,7 +52,15 @@ def create_app():
         response = await call_next(request)
 
         process_time = time.time() - start_time
+
+        # Log request
         logger.info(f"{request.method} {request.url} - {response.status_code} - {process_time:.2f}s")
+
+        # Record metrics
+        record_request_duration(str(request.url.path), process_time, response.status_code)
+
+        if response.status_code >= 400:
+            record_error(f"HTTP_{response.status_code}", str(request.url.path))
 
         return response
 
@@ -49,6 +76,9 @@ def create_app():
     # Include API routes
     app.include_router(documents.router, prefix="/api/v1", tags=["documents"])
     app.include_router(chat.router, prefix="/api/v1", tags=["chat"])
+    app.include_router(auth.router, prefix="/api/v1", tags=["auth"])
+    app.include_router(monitoring.router, prefix="/api/v1", tags=["monitoring"])
+    app.include_router(bulk_upload.router, prefix="/api/v1", tags=["bulk_upload"])
     app.include_router(health.router, tags=["health"])
 
     return app

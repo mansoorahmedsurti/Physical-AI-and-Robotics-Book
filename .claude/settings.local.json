@@ -22,7 +22,9 @@
       "Bash(git push:*)",
       "Bash(git add:*)",
       "Skill(sp.analyze)",
-      "Bash(npm --version)"
+      "Bash(npm --version)",
+      "Skill(sp.tasks)",
+      "Bash(powershell -ExecutionPolicy Bypass -File .specify/scripts/powershell/check-prerequisites.ps1 -Json -RequireTasks -IncludeTasks)"
     ],
     "deny": [],
     "ask": []

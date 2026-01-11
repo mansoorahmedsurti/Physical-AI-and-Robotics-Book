@@ -12,7 +12,7 @@ class ChatService:
     def __init__(self):
         openai.api_key = settings.OPENAI_API_KEY
 
-    async def get_answer(self, query: str, conversation_id: str = None, temperature: float = 0.7) -> Dict[str, Any]:
+    async def get_answer(self, query: str, conversation_id: str = None, temperature: float = 0.7, user_id: int = None) -> Dict[str, Any]:
         """
         Generate an answer to a query using RAG approach
         """
@@ -20,8 +20,8 @@ class ChatService:
             # Generate embedding for the query
             query_embedding = await embedding_service.generate_single_embedding(query)
 
-            # Search for similar document chunks in Qdrant
-            similar_chunks = await qdrant_service.search_similar(query_embedding, limit=5)
+            # Search for similar document chunks in Qdrant with hybrid search
+            similar_chunks = await qdrant_service.search_similar(query_embedding, limit=5, query_text=query)
 
             # Construct context from similar chunks
             context_parts = []
@@ -67,11 +67,17 @@ Answer:"""
             }
 
             # Create or update conversation
-            if conversation_id:
-                conv_uuid = UUID(conversation_id)
-            else:
+            is_new_conversation = False
+            if not conversation_id:
                 conv_uuid = uuid4()
                 conversation_id = str(conv_uuid)
+                is_new_conversation = True
+            else:
+                conv_uuid = UUID(conversation_id)
+
+            # If this is a new conversation and we have a user, create with user ownership
+            if is_new_conversation and user_id:
+                await self._create_conversation_with_user(conversation_id, user_id)
 
             # Save the message to database
             await self._save_message(conversation_id, "user", query, [])
@@ -104,7 +110,23 @@ Answer:"""
             logger.error(f"Error saving message to database: {str(e)}")
             raise
 
-    async def create_conversation(self, title: str = None) -> str:
+    async def _create_conversation_with_user(self, conversation_id: str, user_id: int, title: str = None) -> str:
+        """
+        Create a new conversation with user ownership
+        """
+        try:
+            async with db.pool.acquire() as conn:
+                await conn.execute("""
+                    INSERT INTO conversations (id, user_id, title)
+                    VALUES ($1, $2, $3)
+                """, conversation_id, user_id, title or f"Conversation {datetime.now().strftime('%Y-%m-%d %H:%M')}")
+
+            return conversation_id
+        except Exception as e:
+            logger.error(f"Error creating conversation with user: {str(e)}")
+            raise
+
+    async def create_conversation(self, title: str = None, user_id: int = None) -> str:
         """
         Create a new conversation
         """
@@ -112,10 +134,16 @@ Answer:"""
             conversation_id = str(uuid4())
 
             async with db.pool.acquire() as conn:
-                await conn.execute("""
-                    INSERT INTO conversations (id, title)
-                    VALUES ($1, $2)
-                """, conversation_id, title or f"Conversation {datetime.now().strftime('%Y-%m-%d %H:%M')}")
+                if user_id:
+                    await conn.execute("""
+                        INSERT INTO conversations (id, user_id, title)
+                        VALUES ($1, $2, $3)
+                    """, conversation_id, user_id, title or f"Conversation {datetime.now().strftime('%Y-%m-%d %H:%M')}")
+                else:
+                    await conn.execute("""
+                        INSERT INTO conversations (id, title)
+                        VALUES ($1, $2)
+                    """, conversation_id, title or f"Conversation {datetime.now().strftime('%Y-%m-%d %H:%M')}")
 
             return conversation_id
         except Exception as e:
