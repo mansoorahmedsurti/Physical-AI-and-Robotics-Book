@@ -39,7 +39,7 @@ async def readiness_check():
         services_status = {
             "database": False,
             "qdrant": False,
-            "openai": False
+            "cohere": False
         }
 
         # Check database connection
@@ -59,8 +59,8 @@ async def readiness_check():
         except Exception:
             services_status["qdrant"] = False
 
-        # Check OpenAI API key is configured (but don't make an expensive API call)
-        services_status["openai"] = bool(settings.OPENAI_API_KEY)
+        # Check Cohere API key is configured (but don't make an expensive API call)
+        services_status["cohere"] = bool(settings.COHERE_API_KEY)
 
         all_ready = all(services_status.values())
 
@@ -75,6 +75,6 @@ async def readiness_check():
             services={
                 "database": False,
                 "qdrant": False,
-                "openai": False
+                "cohere": False
             }
         )

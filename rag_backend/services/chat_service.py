@@ -1,4 +1,4 @@
-import openai
+import cohere
 from typing import List, Dict, Any
 from uuid import UUID, uuid4
 from datetime import datetime
@@ -10,7 +10,7 @@ from ..utils import logger
 
 class ChatService:
     def __init__(self):
-        openai.api_key = settings.OPENAI_API_KEY
+        self.co = cohere.Client(settings.COHERE_API_KEY)
 
     async def get_answer(self, query: str, conversation_id: str = None, temperature: float = 0.7, user_id: int = None) -> Dict[str, Any]:
         """
@@ -38,8 +38,8 @@ class ChatService:
             # Combine context
             context = "\n\n".join(context_parts)
 
-            # Construct the prompt for OpenAI
-            prompt = f"""Answer the question based on the context provided. If the answer is not in the context, say "I don't know based on the provided documents."
+            # Construct the prompt for Cohere
+            full_prompt = f"""Answer the question based on the context provided. If the answer is not in the context, say "I don't know based on the provided documents."
 
 Context:
 {context}
@@ -48,22 +48,20 @@ Question: {query}
 
 Answer:"""
 
-            # Call OpenAI API to generate response
-            response = openai.ChatCompletion.create(
-                model="gpt-3.5-turbo",  # Could be configurable to use gpt-4 if preferred
-                messages=[
-                    {"role": "system", "content": "You are a helpful assistant that answers questions based on provided context."},
-                    {"role": "user", "content": prompt}
-                ],
-                temperature=temperature
+            # Call Cohere API to generate response
+            response = self.co.generate(
+                prompt=full_prompt,
+                model="command-r-plus",  # Using Cohere's high-performance model
+                temperature=temperature,
+                max_tokens=500  # Limit response length
             )
 
-            # Extract response and token usage
-            answer = response.choices[0].message.content
+            # Extract response and set mock token usage (Cohere doesn't provide detailed token usage in all cases)
+            answer = response.generations[0].text
             token_usage = {
-                "prompt_tokens": response.usage.prompt_tokens,
-                "completion_tokens": response.usage.completion_tokens,
-                "total_tokens": response.usage.total_tokens
+                "prompt_tokens": len(full_prompt.split()),
+                "completion_tokens": len(answer.split()),
+                "total_tokens": len(full_prompt.split()) + len(answer.split())
             }
 
             # Create or update conversation

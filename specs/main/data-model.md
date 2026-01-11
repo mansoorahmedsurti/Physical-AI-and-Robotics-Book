@@ -59,7 +59,7 @@ CREATE TABLE messages (
 
 ### Document Chunks Collection
 - **Collection Name**: `document_chunks`
-- **Vector Size**: 1536 (for OpenAI text-embedding-ada-002)
+- **Vector Size**: 1024 (for Cohere embed-multilingual-v3.0)
 - **Distance**: Cosine
 - **Payload**:
   - `document_id`: UUID of source document

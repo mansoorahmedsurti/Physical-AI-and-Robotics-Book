@@ -57,9 +57,10 @@ Build and embed a Retrieval-Augmented Generation (RAG) chatbot into the publishe
 ## Non-Functional Requirements
 
 ### Performance
-- Response time under 3 seconds for typical queries
-- Support for 100 concurrent users
-- 99.9% uptime for the RAG service
+- Response time under 3 seconds for 95% of typical queries
+- Support for 100 concurrent users with load testing validation
+- 99.9% uptime for the RAG service measured monthly
+- System must handle 1000 requests per minute sustained load
 
 ### Scalability
 - Auto-scaling with Neon Serverless Postgres
@@ -70,6 +71,11 @@ Build and embed a Retrieval-Augmented Generation (RAG) chatbot into the publishe
 - Secure API keys management
 - Rate limiting to prevent abuse
 - Input sanitization to prevent injection attacks
+
+### Accuracy Verification
+- Implement source citation in responses to allow verification of information
+- Include confidence scores in responses to indicate response reliability
+- Log and monitor response quality metrics for continuous improvement
 
 ## Success Criteria
 

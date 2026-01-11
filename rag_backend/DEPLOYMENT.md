@@ -10,7 +10,7 @@ This guide describes how to deploy the RAG Chatbot backend service to production
 - External services:
   - Neon Postgres database
   - Qdrant Cloud instance
-  - OpenAI API key
+  - OpenAI API key (required for cloud-based embeddings - no local fallback available)
 
 ## Environment Configuration
 
@@ -18,8 +18,8 @@ This guide describes how to deploy the RAG Chatbot backend service to production
 Create a `.env.production` file with the following variables:
 
 ```env
-# OpenAI Configuration
-OPENAI_API_KEY=sk-your-openai-api-key-here
+# Cohere Configuration
+COHERE_API_KEY=your-cohere-api-key-here
 
 # Qdrant Configuration
 QDRANT_API_KEY=your-qdrant-api-key
@@ -65,7 +65,7 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - COHERE_API_KEY=${COHERE_API_KEY}
       - QDRANT_API_KEY=${QDRANT_API_KEY}
       - QDRANT_HOST=${QDRANT_HOST}
       - DATABASE_URL=${DATABASE_URL}
@@ -139,7 +139,7 @@ Monitor these key metrics:
 ### Common Issues
 - Database connectivity issues: Check connection string and credentials
 - Qdrant connectivity: Verify API key and host
-- OpenAI API errors: Check quota and API key validity
+- Cohere API errors: Check quota and API key validity (Note: Cloud-based embeddings only, no local fallback available)
 - High response times: Monitor token usage and scale resources
 
 ### Logs

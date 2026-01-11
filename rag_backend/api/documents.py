@@ -6,7 +6,8 @@ from typing import Optional
 from uuid import UUID, uuid4
 from datetime import datetime
 import hashlib
-from ..models.document import Document, DocumentCreate, DocumentUpdate, IngestRequest, IngestResponse
+from ..models.document import Document, DocumentCreate, DocumentUpdate
+from ..models.chat import IngestRequest, IngestResponse
 from ..services.document_processor import document_processor
 from ..services.qdrant_service import qdrant_service
 from ..database import db

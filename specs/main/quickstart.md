@@ -3,7 +3,7 @@
 ## Prerequisites
 
 - Python 3.11+
-- Access to OpenAI API
+- **Required**: Access to Cohere API (cloud-based embeddings only - no local fallback)
 - Qdrant Cloud account
 - Neon Postgres account
 - Node.js (for React widget integration)
@@ -42,7 +42,7 @@ cp .env.example .env
 
 ### 3. Environment Variables (.env)
 ```env
-OPENAI_API_KEY=your_openai_api_key
+COHERE_API_KEY=your_cohere_api_key
 QDRANT_API_KEY=your_qdrant_api_key
 QDRANT_HOST=your_qdrant_cloud_host
 DATABASE_URL=postgresql://username:password@neon_host/dbname

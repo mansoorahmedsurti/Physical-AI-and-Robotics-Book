@@ -1,7 +1,7 @@
 from qdrant_client import QdrantClient
 from qdrant_client.http import models
 from typing import List, Dict, Any
-from config import settings
+from ..config import settings
 
 class QdrantService:
     def __init__(self):
@@ -10,7 +10,13 @@ class QdrantService:
             api_key=settings.QDRANT_API_KEY,
         )
         self.collection_name = "document_chunks"
-        self._initialize_collection()
+        self._initialized = False  # Track initialization status
+
+    def _ensure_initialized(self):
+        """Ensure the collection is initialized (lazy initialization)"""
+        if not self._initialized:
+            self._initialize_collection()
+            self._initialized = True
 
     def _initialize_collection(self):
         """Initialize the document chunks collection if it doesn't exist"""
@@ -21,17 +27,30 @@ class QdrantService:
             # Create collection if it doesn't exist
             self.client.create_collection(
                 collection_name=self.collection_name,
-                vectors_config=models.VectorParams(size=1536, distance=models.Distance.COSINE),  # OpenAI embedding size
+                vectors_config=models.VectorParams(size=1024, distance=models.Distance.COSINE),  # Cohere embedding size
             )
             print(f"Created collection: {self.collection_name}")
 
     async def store_embeddings(self, document_id: str, chunks: List[Dict[str, Any]]) -> List[str]:
         """Store document chunks with their embeddings in Qdrant"""
+        # Ensure collection is initialized before storing
+        self._ensure_initialized()
+
         points = []
         for idx, chunk in enumerate(chunks):
+            embedding = chunk['embedding']
+
+            # Skip chunks that don't have embeddings (couldn't be generated)
+            if embedding is None:
+                continue
+
+            import uuid
+            # Generate a unique UUID for each point as required by Qdrant
+            point_id = str(uuid.uuid4())
+
             point = models.PointStruct(
-                id=f"{document_id}_{idx}",
-                vector=chunk['embedding'],
+                id=point_id,
+                vector=embedding,
                 payload={
                     "document_id": document_id,
                     "chunk_index": idx,
@@ -42,16 +61,21 @@ class QdrantService:
             )
             points.append(point)
 
-        # Upload points to Qdrant
-        self.client.upsert(
-            collection_name=self.collection_name,
-            points=points
-        )
+        # Only upload points if there are any with valid embeddings
+        if points:
+            # Upload points to Qdrant
+            self.client.upsert(
+                collection_name=self.collection_name,
+                points=points
+            )
 
         return [point.id for point in points]
 
     async def search_similar(self, query_embedding: List[float], limit: int = 5, query_text: str = None) -> List[Dict[str, Any]]:
         """Search for similar document chunks based on query embedding"""
+        # Ensure collection is initialized before searching
+        self._ensure_initialized()
+
         # If query_text is provided, perform hybrid search (semantic + keyword)
         if query_text:
             search_result = self._hybrid_search(query_embedding, query_text, limit)
@@ -199,6 +223,9 @@ class QdrantService:
 
     async def delete_document_chunks(self, document_id: str):
         """Delete all chunks associated with a document"""
+        # Ensure collection is initialized before deletion
+        self._ensure_initialized()
+
         # Find all points with this document_id
         scroll_result = self.client.scroll(
             collection_name=self.collection_name,

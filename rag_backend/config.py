@@ -5,8 +5,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 class Settings:
-    # OpenAI settings
-    OPENAI_API_KEY: str = os.getenv("OPENAI_API_KEY", "")
+    # Cohere settings
+    COHERE_API_KEY: str = os.getenv("COHERE_API_KEY", "")
 
     # Qdrant settings
     QDRANT_API_KEY: str = os.getenv("QDRANT_API_KEY", "")

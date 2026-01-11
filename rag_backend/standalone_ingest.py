@@ -8,7 +8,7 @@ from docx import Document as DocxDocument
 from PIL import Image
 import pytesseract
 import numpy as np
-import openai
+import cohere
 from qdrant_client import QdrantClient
 from qdrant_client.http import models
 import asyncpg
@@ -17,8 +17,8 @@ import tempfile
 
 
 class StandaloneDocumentProcessor:
-    def __init__(self, openai_api_key: str, qdrant_host: str, qdrant_api_key: str):
-        openai.api_key = openai_api_key
+    def __init__(self, cohere_api_key: str, qdrant_host: str, qdrant_api_key: str):
+        self.co = cohere.Client(cohere_api_key)
         self.qdrant_client = QdrantClient(url=qdrant_host, api_key=qdrant_api_key)
         self.collection_name = "document_chunks"
 
@@ -93,17 +93,16 @@ class StandaloneDocumentProcessor:
             raise
 
     async def generate_embedding(self, text: str) -> List[float]:
-        """Generate embedding for text using OpenAI"""
+        """Generate embedding for text using Cohere"""
         try:
-            # Truncate text if too long (OpenAI has a limit)
-            truncated_text = text[:8192]  # OpenAI's limit is 8192 tokens
-
-            response = openai.Embedding.create(
-                input=truncated_text,
-                model="text-embedding-ada-002"
+            response = self.co.embed(
+                texts=[text],
+                model="embed-multilingual-v3.0",  # Using multilingual model for broader language support
+                input_type="search_document"  # Required parameter for the v3 model
             )
 
-            return response['data'][0]['embedding']
+            # Extract the first (and only) embedding from the response
+            return response.embeddings[0]
         except Exception as e:
             print(f"Error generating embedding: {str(e)}")
             raise
@@ -184,17 +183,17 @@ async def main():
         sys.exit(1)
 
     # Get API keys from environment or config
-    openai_api_key = os.getenv("OPENAI_API_KEY", "")
+    cohere_api_key = os.getenv("COHERE_API_KEY", "")
     qdrant_host = os.getenv("QDRANT_HOST", "")
     qdrant_api_key = os.getenv("QDRANT_API_KEY", "")
     database_url = os.getenv("DATABASE_URL", "")
 
-    if not all([openai_api_key, qdrant_host, qdrant_api_key, database_url]):
-        print("Error: Please set the required environment variables: OPENAI_API_KEY, QDRANT_HOST, QDRANT_API_KEY, DATABASE_URL")
+    if not all([cohere_api_key, qdrant_host, qdrant_api_key, database_url]):
+        print("Error: Please set the required environment variables: COHERE_API_KEY, QDRANT_HOST, QDRANT_API_KEY, DATABASE_URL")
         sys.exit(1)
 
     # Initialize the document processor
-    processor = StandaloneDocumentProcessor(openai_api_key, qdrant_host, qdrant_api_key)
+    processor = StandaloneDocumentProcessor(cohere_api_key, qdrant_host, qdrant_api_key)
 
     try:
         # Connect to database

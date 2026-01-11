@@ -25,11 +25,11 @@ Build and embed a Retrieval-Augmented Generation (RAG) chatbot into the publishe
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-- Adheres to Accuracy through primary source verification: Using proven technologies (FastAPI, OpenAI, Qdrant, Postgres)
+- Adheres to Accuracy through primary source verification: Using proven technologies (FastAPI, OpenAI, Qdrant, Postgres) and implementing response verification mechanisms to ensure RAG-generated content accuracy
 - Follows Clarity for technical audience: Well-documented APIs and clear architecture
-- Maintains Reproducibility: Using standard libraries and documented deployment procedures
-- Demonstrates Rigor: Leveraging industry-standard tools and best practices
-- Addresses Ethical AI considerations: Secure handling of data and API keys
+- Maintains Reproducibility: Using standard libraries, documented deployment procedures, and including performance benchmarking in tests
+- Demonstrates Rigor: Leveraging industry-standard tools and best practices, with load testing and performance monitoring
+- Addresses Ethical AI considerations: Secure handling of data, API keys, and implementing rate limiting to prevent abuse
 - Ensures Comprehensiveness: Full-stack solution covering backend, storage, and frontend
 - Promotes Engagement: Interactive chat interface for book content
 

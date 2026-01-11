@@ -94,13 +94,18 @@
 ## Phase 7: Polish & Cross-Cutting Concerns
 
 - [X] T060 Add comprehensive error handling and validation
-- [ ] T061 Implement rate limiting for API endpoints
+- [ ] T061 Implement rate limiting for API endpoints with 100 requests per minute per IP
 - [X] T062 Add request/response logging
 - [X] T063 Create Dockerfile for containerized deployment
 - [X] T064 Add unit tests for core services
 - [X] T065 Add integration tests for API endpoints
 - [X] T066 Update quickstart.md with complete implementation details
 - [X] T067 Create deployment documentation
+- [ ] T068 Add performance monitoring with response time tracking (target: <3s for 95% of requests)
+- [ ] T069 Add load testing to validate support for 100 concurrent users
+- [ ] T070 Implement source citation in chat responses
+- [ ] T071 Add confidence scoring to RAG responses
+- [ ] T072 Create response quality monitoring dashboard
 
 ## Dependencies
 

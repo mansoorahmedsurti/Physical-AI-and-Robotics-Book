@@ -2,8 +2,8 @@ import asyncpg
 import json
 from typing import Dict, Any, List, Optional
 from uuid import UUID
-from config import settings
-from utils import logger
+from .config import settings
+from .utils import logger
 
 class Database:
     def __init__(self):

@@ -1,10 +1,10 @@
 import os
 from pathlib import Path
 from typing import List, Dict, Any
-from services.document_processor import document_processor
-from services.qdrant_service import qdrant_service
-from database import db
-from utils import logger
+from .services.document_processor import document_processor
+from .services.qdrant_service import qdrant_service
+from .database import db
+from .utils import logger
 import hashlib
 import asyncio
 

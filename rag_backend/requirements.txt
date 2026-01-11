@@ -1,7 +1,7 @@
 fastapi
 uvicorn
 qdrant-client
-openai
+cohere
 psycopg2-binary
 python-dotenv
 PyPDF2
