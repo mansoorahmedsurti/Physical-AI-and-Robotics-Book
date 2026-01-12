@@ -41,17 +41,7 @@ const config = {
   ],
 
   plugins: [
-    [
-      '@docusaurus/plugin-client-redirects',
-      {
-        redirects: [
-          {
-            to: '/rag-chat',
-            from: '/chat',
-          },
-        ],
-      },
-    ],
+    // No redirects needed since we have a floating chat widget
   ],
 
   // Proxy configuration for API requests
@@ -75,11 +65,6 @@ themeConfig:
           src: 'img/main_logo.png',
         },
         items: [
-          {
-            to: '/rag-chat',
-            label: 'RAG Chat',
-            position: 'left',
-          },
           {
             href: 'https://github.com/mansoorahmedsurti/Physical-AI-and-Robotics-Book',
             label: 'GitHub',

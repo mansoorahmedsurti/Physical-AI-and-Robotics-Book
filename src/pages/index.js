@@ -23,11 +23,6 @@ function HomepageHeader() {
           </Link>
           <Link
             className="button button--secondary button--lg"
-            to="/rag-chat">
-            Try RAG Chat
-          </Link>
-          <Link
-            className="button button--secondary button--lg"
             to="https://github.com/mansoorahmedsurti/Physical-AI-and-Robotics-Book">
             View on GitHub
           </Link>
