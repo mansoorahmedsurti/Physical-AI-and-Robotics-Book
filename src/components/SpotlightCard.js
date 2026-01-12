@@ -37,7 +37,6 @@ const SpotlightCard = ({ title, description, children }) => {
     >
       <h3>{title}</h3>
       <p>{description}</p>
-      {children}
     </div>
   );
 };
