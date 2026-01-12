@@ -58,7 +58,8 @@
       "Bash(taskkill /PID 16624 /F)",
       "Bash(find . -name \"tmpclaude*\" -o -name \"nul\" -o -name \"*.egg-info\" -exec rm -rf {} +)",
       "Bash(find . -name \"tmpclaude*\" -o -name \"nul\" -exec del {})",
-      "Bash(dir tmpclaude*.cwd nul)"
+      "Bash(dir tmpclaude*.cwd nul)",
+      "Bash(find . -name \"tmpclaude*\" -delete)"
     ],
     "deny": [],
     "ask": []
