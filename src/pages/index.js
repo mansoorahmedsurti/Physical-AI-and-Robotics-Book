@@ -3,6 +3,8 @@ import clsx from 'clsx';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
+import TypewriterEffect from '../components/TypewriterEffect';
+import SpotlightCard from '../components/SpotlightCard';
 
 function HomepageHeader() {
   const {siteConfig} = useDocusaurusContext();
@@ -12,9 +14,9 @@ function HomepageHeader() {
         <h1 className="hero__title">
           Physical AI & Humanoid Robotics
         </h1>
-        <p className="hero__subtitle">
-          From ROS 2 to Isaac Sim: The Future of Embodied Intelligence
-        </p>
+        <div className="hero__subtitle">
+          <TypewriterEffect />
+        </div>
         {/* Video/Graphs Section */}
         <div className="hero-media">
           <div className="media-content">
@@ -131,47 +133,59 @@ function Homepage() {
           <div className="featuresGrid">
 
             {/* Card 1: Edge Deployment */}
-            <div className="card">
-              <h3>Edge Deployment</h3>
+            <SpotlightCard
+              title="Edge Deployment"
+              description="Optimize your nodes for NVIDIA Jetson Orin. Run heavy VLA models with low latency."
+            >
               <p>
                 Optimize your nodes for <strong>NVIDIA Jetson Orin</strong>. Run heavy VLA models with low latency.
               </p>
-            </div>
+            </SpotlightCard>
 
             {/* Card 2: Robotic Operating System */}
-            <div className="card">
-              <h3>Robotic Operating System</h3>
+            <SpotlightCard
+              title="Robotic Operating System"
+              description="Deep dive into ROS 2 nodes and communication."
+            >
               <p>Deep dive into <strong>ROS 2</strong> nodes and communication.</p>
-            </div>
+            </SpotlightCard>
 
             {/* Card 3: Sim2Real Gap */}
-            <div className="card">
-              <h3>Sim2Real Gap</h3>
+            <SpotlightCard
+              title="Sim2Real Gap"
+              description="Bridge the reality gap. Techniques to deploy simulation policies onto real physical hardware."
+            >
               <p>
                 Bridge the reality gap. Techniques to deploy simulation policies onto real <strong>physical hardware</strong>.
               </p>
-            </div>
+            </SpotlightCard>
             {/* --- NEW ROW --- */}
 
             {/* Card 4: VLA Models */}
-            <div className="card">
-              <h3>VLA Models</h3>
+            <SpotlightCard
+              title="VLA Models"
+              description="Integration of Vision-Language-Action models."
+            >
               <p>Integration of <strong>Vision-Language-Action</strong> models.</p>
-            </div>
+            </SpotlightCard>
 
             {/* Card 5: Physical Simulation */}
-            <div className="card">
-              <h3>Physical Simulation</h3>
+            <SpotlightCard
+              title="Physical Simulation"
+              description="Training agents in NVIDIA Isaac Sim."
+            >
               <p>Training agents in <strong>NVIDIA Isaac Sim</strong>.</p>
-            </div>
+            </SpotlightCard>
 
             {/* Card 6: Gym & RL Training */}
-            <div className="card">
-              <h3>Gym & RL Training</h3>
+            <SpotlightCard
+              title="Gym & RL Training"
+              description="Train robust walking policies using OmniIsaacGymEnvs and PPO/SAC algorithms."
+            >
               <p>
                 Train robust walking policies using <strong>OmniIsaacGymEnvs</strong> and PPO/SAC algorithms.
               </p>
-            </div>
+            </SpotlightCard>
 
           </div>
         </div>
