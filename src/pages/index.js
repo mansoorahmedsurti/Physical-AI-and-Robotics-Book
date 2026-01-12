@@ -15,6 +15,61 @@ function HomepageHeader() {
         <p className="hero__subtitle">
           From ROS 2 to Isaac Sim: The Future of Embodied Intelligence
         </p>
+        {/* Video/Graphs Section */}
+        <div className="hero-media">
+          <div className="media-content">
+            <div className="video-container has-animation">
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="hero-video"
+                onError={(e) => {
+                  e.target.classList.add('video-hidden');
+                  // Show the visualization fallback
+                  const vizContainer = e.target.parentNode.nextElementSibling;
+                  if (vizContainer) {
+                    vizContainer.style.display = 'flex';
+                  }
+                }}
+                onLoadStart={(e) => {
+                  // Hide the visualization when video starts loading
+                  const vizContainer = e.target.parentNode.nextElementSibling;
+                  if (vizContainer) {
+                    vizContainer.style.display = 'none';
+                  }
+                }}
+              >
+                <source src="/img/robot-demo.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            </div>
+
+            {/* Fallback: Static visualization if video fails */}
+            <div className="hero-visualizations">
+              <div className="visualization-grid">
+                <div className="viz-item">
+                  <div className="viz-icon">🤖</div>
+                  <div className="viz-text">ROS 2</div>
+                </div>
+                <div className="viz-item">
+                  <div className="viz-icon">🎮</div>
+                  <div className="viz-text">Isaac Sim</div>
+                </div>
+                <div className="viz-item">
+                  <div className="viz-icon">🧠</div>
+                  <div className="viz-text">VLA Models</div>
+                </div>
+                <div className="viz-item">
+                  <div className="viz-icon">🎯</div>
+                  <div className="viz-text">RL Training</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div className="buttons">
           <Link
             className="button button--primary button--lg"
