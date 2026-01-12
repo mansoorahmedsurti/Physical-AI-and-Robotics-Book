@@ -176,5 +176,27 @@ export const ragApi = {
       console.error('Error in upload document API call:', error);
       throw error;
     }
+  },
+
+  /**
+   * Health check to see if the backend is reachable
+   * @returns {Promise<boolean>} Whether the backend is accessible
+   */
+  async healthCheck() {
+    try {
+      // Try to reach the health endpoint first, fall back to a simple GET
+      const healthUrl = `${API_BASE_URL.replace('/api/v1', '')}/health`;
+      const response = await fetch(healthUrl, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+        }
+      });
+
+      return response.ok;
+    } catch (error) {
+      console.warn('Health check failed:', error);
+      return false;
+    }
   }
 };

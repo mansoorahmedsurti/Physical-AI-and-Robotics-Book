@@ -13,6 +13,7 @@ function RAGChatPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [conversations, setConversations] = useState([]);
   const [currentConversationId, setCurrentConversationId] = useState(null);
+  const [connectionStatus, setConnectionStatus] = useState('checking'); // 'connected', 'disconnected', 'checking'
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -21,7 +22,23 @@ function RAGChatPage() {
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages]);
+
+    // Check connection status on component mount
+    const checkConnection = async () => {
+      setConnectionStatus('checking');
+
+      try {
+        // Use the health check function to verify backend connectivity
+        const isConnected = await ragApi.healthCheck();
+        setConnectionStatus(isConnected ? 'connected' : 'disconnected');
+      } catch (error) {
+        console.error('Connection check failed:', error);
+        setConnectionStatus('disconnected');
+      }
+    };
+
+    checkConnection();
+  }, []);
 
   const sendMessage = async () => {
     if (!inputText.trim() || isLoading) return;
@@ -113,8 +130,16 @@ function RAGChatPage() {
       description="Interactive RAG chatbot for document querying">
       <div className="rag-chat-container">
         <div className="rag-chat-header">
-          <h1>RAG Chatbot</h1>
-          <p>Ask questions about your documents</p>
+          <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%'}}>
+            <div>
+              <h1>RAG Chatbot</h1>
+              <p>Ask questions about your documents</p>
+            </div>
+            <div className={`connection-status ${connectionStatus}`}>
+              <span className="status-indicator"></span>
+              <span className="status-text">{connectionStatus === 'connected' ? 'Connected' : connectionStatus === 'checking' ? 'Checking connection...' : 'Disconnected'}</span>
+            </div>
+          </div>
         </div>
 
         <div className="rag-chat-main">
