@@ -10,6 +10,13 @@ function HomepageHeader() {
   const {siteConfig} = useDocusaurusContext();
   return (
     <header className="hero hero--primary hero--centered">
+      <div className="video-background">
+        <video autoPlay muted loop playsInline className="background-video">
+          <source src="/vids/video.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <div className="video-overlay"></div>
+      </div>
       <div className="container">
         <h1 className="hero__title">
           Physical AI & Humanoid Robotics

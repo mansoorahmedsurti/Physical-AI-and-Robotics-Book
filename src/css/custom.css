@@ -80,6 +80,41 @@ body {
   50% { opacity: 0; }
 }
 
+/* Video Background */
+.video-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.background-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  transform: translate(-50%, -50%);
+  z-index: -2;
+  object-fit: cover;
+  opacity: 0.3; /* Reduced opacity to make content readable */
+}
+
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, transparent 0%, var(--background-color) 70%);
+  z-index: -1;
+}
+
 /* Reduce margin since we removed the media section */
 .hero__subtitle {
   margin-bottom: 1rem;
@@ -625,57 +660,8 @@ html, body {
   box-shadow: 0 12px 25px var(--card-glow);
 }
 
-/* Dynamic Background Grid Pattern */
-body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image:
-    linear-gradient(rgba(59, 130, 246, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(59, 130, 246, 0.05) 1px, transparent 1px);
-  background-size: 50px 50px;
-  z-index: -2;
-  pointer-events: none;
-  animation: gridMove 20s linear infinite;
-}
-
-@keyframes gridMove {
-  0% {
-    transform: translate(0, 0);
-  }
-  100% {
-    transform: translate(50px, 50px);
-  }
-}
-
-/* Alternative Dot Pattern (uncomment to use instead of grid) */
-/*
-body::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: radial-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px);
-  background-size: 40px 40px;
-  z-index: -2;
-  pointer-events: none;
-  animation: dotsMove 30s linear infinite;
-}
-
-@keyframes dotsMove {
-  0% {
-    transform: translate(0, 0);
-  }
-  100% {
-    transform: translate(40px, 40px);
-  }
-}
-*/
+/* Dynamic Video Background */
+/* Already handled with .video-background and .background-video classes */
 
 /* Adjust card padding for smaller screens */
 @media screen and (max-width: 480px) {
