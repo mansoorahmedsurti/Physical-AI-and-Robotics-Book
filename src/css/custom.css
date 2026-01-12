@@ -80,13 +80,9 @@ body {
   50% { opacity: 0; }
 }
 
-/* Hero Media Section */
-.hero-media {
-  margin: 2rem 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
+/* Reduce margin since we removed the media section */
+.hero__subtitle {
+  margin-bottom: 1rem;
 }
 
 .video-container {

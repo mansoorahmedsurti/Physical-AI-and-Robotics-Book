@@ -17,61 +17,6 @@ function HomepageHeader() {
         <div className="hero__subtitle">
           <TypewriterEffect />
         </div>
-        {/* Video/Graphs Section */}
-        <div className="hero-media">
-          <div className="media-content">
-            <div className="video-container has-animation">
-              <video
-                autoPlay
-                muted
-                loop
-                playsInline
-                className="hero-video"
-                onError={(e) => {
-                  e.target.classList.add('video-hidden');
-                  // Show the visualization fallback
-                  const vizContainer = e.target.parentNode.nextElementSibling;
-                  if (vizContainer) {
-                    vizContainer.style.display = 'flex';
-                  }
-                }}
-                onLoadStart={(e) => {
-                  // Hide the visualization when video starts loading
-                  const vizContainer = e.target.parentNode.nextElementSibling;
-                  if (vizContainer) {
-                    vizContainer.style.display = 'none';
-                  }
-                }}
-              >
-                <source src="/img/robot-demo.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-            </div>
-
-            {/* Fallback: Static visualization if video fails */}
-            <div className="hero-visualizations">
-              <div className="visualization-grid">
-                <div className="viz-item">
-                  <div className="viz-icon">🤖</div>
-                  <div className="viz-text">ROS 2</div>
-                </div>
-                <div className="viz-item">
-                  <div className="viz-icon">🎮</div>
-                  <div className="viz-text">Isaac Sim</div>
-                </div>
-                <div className="viz-item">
-                  <div className="viz-icon">🧠</div>
-                  <div className="viz-text">VLA Models</div>
-                </div>
-                <div className="viz-item">
-                  <div className="viz-icon">🎯</div>
-                  <div className="viz-text">RL Training</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <div className="buttons">
           <Link
             className="button button--primary button--lg"
@@ -83,28 +28,6 @@ function HomepageHeader() {
             to="https://github.com/mansoorahmedsurti/Physical-AI-and-Robotics-Book">
             View on GitHub
           </Link>
-        </div>
-
-        {/* Author Section */}
-        <div className="author-section">
-          <div className="author-info">
-            <div className="author-avatar">
-              <img src="/img/profile-placeholder.jpg" alt="Author" onError={(e) => {
-                e.target.style.display = 'none';
-                const parent = e.target.parentElement;
-                if (parent) parent.style.display = 'none';
-              }} />
-            </div>
-            <div className="author-details">
-              <h4>By Mansoor Ahmed</h4>
-              <p className="author-subtitle">AI & Robotics Engineer</p>
-            </div>
-          </div>
-          <div className="github-stats">
-            <a href="https://github.com/mansoorahmedsurti/Physical-AI-and-Robotics-Book" target="_blank" rel="noopener noreferrer">
-              <span className="github-star">⭐ Star this project</span>
-            </a>
-          </div>
         </div>
       </div>
     </header>
