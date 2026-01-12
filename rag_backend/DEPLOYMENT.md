@@ -2,6 +2,7 @@
 
 ## Overview
 This guide describes how to deploy the RAG Chatbot backend service to production environments.
+**IMPORTANT**: This system uses Cohere cloud-based embeddings only (embed-english-v3.0 model) and chat generation (command-r model). No local model fallback is available due to 8GB RAM constraint.
 
 ## Prerequisites
 - Docker and Docker Compose
@@ -10,7 +11,7 @@ This guide describes how to deploy the RAG Chatbot backend service to production
 - External services:
   - Neon Postgres database
   - Qdrant Cloud instance
-  - OpenAI API key (required for cloud-based embeddings - no local fallback available)
+  - Cohere API key (required for cloud-based embeddings - no local fallback available)
 
 ## Environment Configuration
 

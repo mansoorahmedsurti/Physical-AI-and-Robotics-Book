@@ -21,6 +21,7 @@ class DocumentProcessor:
     async def process_document(self, filename: str, content: str) -> List[Dict[str, Any]]:
         """
         Process document content and return chunks with embeddings
+        Enforce cloud-based Cohere embeddings only - no local fallback allowed
         """
         try:
             # Check content length to prevent memory issues with very large documents
@@ -33,7 +34,7 @@ class DocumentProcessor:
             # In a real implementation, we'd use proper document parsing libraries
             chunks = self._chunk_text(content)
 
-            # Generate embeddings for each chunk
+            # Generate embeddings for each chunk using Cohere cloud service
             chunk_contents = [chunk['content'] for chunk in chunks]
             chunk_embeddings = await self.embedding_service.generate_embeddings(chunk_contents)
 
@@ -48,40 +49,11 @@ class DocumentProcessor:
                 processed_chunks.append(processed_chunk)
 
             return processed_chunks
-        except MemoryError as e:
-            logger.error(f"Memory error processing document {filename}: {str(e)}")
-            # Handle memory errors specifically by returning minimal chunks
-            # Split the content into much larger chunks to reduce memory pressure
-            large_chunk_size = 5000  # Much larger chunks to reduce number of chunks
-            large_chunks = self._chunk_text(content, chunk_size=large_chunk_size, overlap=500)
-
-            processed_chunks = []
-            for chunk in large_chunks:
-                processed_chunk = {
-                    'content': chunk['content'],
-                    'embedding': None,  # No embedding available due to memory constraints
-                    'page_number': chunk.get('page_number', 1)
-                }
-                processed_chunks.append(processed_chunk)
-
-            logger.warning(f"Document processed with reduced functionality due to memory constraints: {filename}")
-            return processed_chunks
         except Exception as e:
-            logger.error(f"Error processing document: {str(e)}")
-            # Instead of failing completely, we can try to continue with just the content
-            # This allows processing to continue even if embeddings can't be generated
-            chunks = self._chunk_text(content)
-            processed_chunks = []
-            for chunk in chunks:
-                processed_chunk = {
-                    'content': chunk['content'],
-                    'embedding': None,  # No embedding available
-                    'page_number': chunk.get('page_number', 1)
-                }
-                processed_chunks.append(processed_chunk)
-
-            logger.warning(f"Document processed without embeddings due to error: {str(e)}")
-            return processed_chunks
+            logger.error(f"Critical error processing document {filename}: {str(e)}")
+            # According to requirements, no local model fallback is allowed due to 8GB RAM constraint
+            # So we must fail completely if embeddings cannot be generated via Cohere
+            raise Exception(f"Document processing failed and local fallback is prohibited by requirements: {str(e)}")
 
     def _chunk_text(self, text: str, chunk_size: int = 1000, overlap: int = 100) -> List[Dict[str, Any]]:
         """
@@ -138,6 +110,7 @@ class DocumentProcessor:
     async def process_file(self, file_path: str) -> List[Dict[str, Any]]:
         """
         Process a file from disk and return chunks with embeddings
+        Enforce cloud-based Cohere embeddings only - no local fallback allowed
         """
         try:
             # Check file size to prevent memory issues with very large files
@@ -171,6 +144,7 @@ class DocumentProcessor:
             return await self.process_document(Path(file_path).name, content)
         except Exception as e:
             logger.error(f"Error processing file {file_path}: {str(e)}")
+            # Propagate the error upward - no local fallback allowed due to 8GB RAM constraint
             raise InvalidDocumentException(f"Could not process file {file_path}: {str(e)}")
 
     def _extract_text_from_pdf(self, pdf_path: str) -> str:

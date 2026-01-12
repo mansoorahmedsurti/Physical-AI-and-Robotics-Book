@@ -40,7 +40,12 @@
       "Bash(findstr env)",
       "Bash(findstr -i env)",
       "Bash(python ingest.py \"C:\\\\Users\\\\Administrator\\\\Desktop\\\\GIAIC_BOOK\\\\Content\\(for Qdrant\\)\")",
-      "Bash(python -m uvicorn rag_backend.main:app --host 0.0.0.0 --port 8000 --reload)"
+      "Bash(python -m uvicorn rag_backend.main:app --host 0.0.0.0 --port 8000 --reload)",
+      "Bash(dir \"C:\\\\Users\\\\Administrator\\\\Desktop\\\\GIAIC_BOOK\\\\myBook\\\\specs\\\\main\\\\checklists\" -Name)",
+      "Bash(powershell -Command \"Get-ChildItem -Path ''C:\\\\Users\\\\Administrator\\\\Desktop\\\\GIAIC_BOOK\\\\myBook\\\\specs\\\\main\\\\checklists'' -Name\")",
+      "Bash(find . -name \"*.py\" -exec grep -l \"lifespan\\\\|@app.on_event\\\\|fastapi.*lifespan\" {} ;)",
+      "Bash(find . -name \"*.py\" -exec grep -H \"lifespan\\\\|on_event\\\\|@app.on_event\\\\|startup\" {} ;)",
+      "Skill(sp.phr)"
     ],
     "deny": [],
     "ask": []

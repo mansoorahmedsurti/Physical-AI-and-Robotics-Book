@@ -32,7 +32,7 @@ async def health_check():
             "checks": {
                 "database": "ok",  # Would check actual database connectivity
                 "qdrant": "ok",    # Would check actual Qdrant connectivity
-                "openai": "ok"     # Would check actual OpenAI connectivity
+                "cohere": "ok"     # Would check actual Cohere connectivity
             }
         }
     except Exception as e:

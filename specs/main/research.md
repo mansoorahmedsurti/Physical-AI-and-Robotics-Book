@@ -1,11 +1,11 @@
 # RAG Chatbot - Research Findings
 
 ## Decision: Technology Stack Selection
-**Rationale**: Selected FastAPI, Qdrant Cloud, Neon Postgres, and OpenAI for optimal performance, scalability, and maintainability.
+**Rationale**: Selected FastAPI, Qdrant Cloud, Neon Postgres, and Cohere for optimal performance, scalability, and maintainability.
 **Alternatives considered**:
 - Vector DBs: Pinecone, Weaviate, ChromaDB - Qdrant Cloud chosen for managed service and performance
 - Databases: MongoDB, MySQL - Neon Postgres chosen for serverless and JSON support
-- LLMs: Anthropic, Google - OpenAI chosen for maturity and integration
+- LLMs: Anthropic, Google, OpenAI - Cohere chosen for performance and cost-effectiveness
 
 ## Decision: Architecture Pattern - Separate Service
 **Rationale**: Running RAG backend as separate service on port 8000 maintains clean separation from existing book app (port 3000).
@@ -22,10 +22,10 @@
 - Custom parsing: Built-in libraries provide sufficient functionality
 
 ## Decision: Embedding Strategy
-**Rationale**: Using OpenAI's embedding API for consistency with GPT-4 generation and managed service benefits.
+**Rationale**: Using Cohere's embedding API for consistency with Cohere generation and managed service benefits.
 **Alternatives considered**:
 - Local embeddings (sentence-transformers): Not in required stack
-- Cohere embeddings: Not in required stack
+- OpenAI embeddings: Not in required stack
 - Custom embeddings: Higher complexity and maintenance
 
 ## Decision: Frontend Integration
@@ -54,7 +54,7 @@
 - Transaction management for data consistency
 - Proper indexing for query performance
 
-## Best Practices for OpenAI Integration
+## Best Practices for Cohere Integration
 - Token usage tracking for cost management
 - Proper error handling for API limits
 - Temperature and max_tokens configuration

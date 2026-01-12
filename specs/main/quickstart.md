@@ -3,7 +3,8 @@
 ## Prerequisites
 
 - Python 3.11+
-- **Required**: Access to Cohere API (cloud-based embeddings only - no local fallback)
+- **Required**: Access to Cohere API (cloud-based embeddings only - no local fallback due to 8GB RAM constraint)
+- **Cohere Models Used**: embed-english-v3.0 for embeddings, command-r for chat generation
 - Qdrant Cloud account
 - Neon Postgres account
 - Node.js (for React widget integration)
@@ -191,7 +192,7 @@ docker build -t rag-chatbot-backend .
 ### 2. Run in production:
 ```bash
 docker run -p 8000:8000 \
-  -e OPENAI_API_KEY=your_key \
+  -e COHERE_API_KEY=your_key \
   -e QDRANT_HOST=your_host \
   -e DATABASE_URL=your_db_url \
   rag-chatbot-backend

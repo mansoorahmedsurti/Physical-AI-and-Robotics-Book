@@ -38,17 +38,18 @@
   - Will evaluate best approach for PDF processing with minimal dependencies
 
 ### Embedding Models
-- **OpenAI Embeddings (text-embedding-ada-002)**:
+- **Cohere Embeddings (embed-english-v3.0)**:
   - High quality embeddings
   - Consistent performance
   - Easy integration
   - Managed service
+  - No local fallback allowed due to 8GB RAM constraint
 
 ## Architecture Patterns
 
 ### RAG Implementation
 - **Retrieval Phase**: Vector similarity search in Qdrant
-- **Generation Phase**: OpenAI GPT model with retrieved context
+- **Generation Phase**: Cohere command-r model with retrieved context
 - **Chunking Strategy**: Sentence-aware chunking with overlap
 - **Context Window Management**: Max tokens calculation
 
@@ -64,7 +65,7 @@
 - Environment variables with python-dotenv
 - Never hardcode credentials
 - Use Neon Postgres connection pooling securely
-- OpenAI API key rotation strategy
+- Cohere API key rotation strategy
 
 ### Input Validation
 - Sanitize user inputs to prevent injection
@@ -94,10 +95,10 @@
 
 ## Cost Considerations
 
-### OpenAI API Costs
-- Prompt tokens: ~$0.0015 / 1K tokens
-- Completion tokens: ~$0.002 / 1K tokens
-- Embedding tokens: ~$0.0001 / 1K tokens
+### Cohere API Costs
+- Command-r model: $0.50 / million tokens for input, $1.50 / million tokens for output
+- Embed-english-v3.0: $0.10 / million tokens
+- No local processing costs (due to 8GB RAM constraint preventing local model usage)
 
 ### Qdrant Cloud Pricing
 - Depends on vector count and operations

@@ -37,7 +37,7 @@ Detailed Outline:
 
 ## Module 4: Vision-Language-Action (VLA)
 - **Focus:** Cognitive Layer.
-- **Key Concepts:** OpenAI Whisper (Voice) + LLM Logic = Robot Action.
+- **Key Concepts:** Voice Processing (Speech-to-Text) + Cohere LLM Logic = Robot Action.
 - **Project:** "Clean the Room" Agent (Voice command -> Planning -> Execution).
 
 ## Capstone: The Autonomous Humanoid

@@ -86,5 +86,5 @@
 **Responses**:
 - 200: Service ready
   - Content-Type: application/json
-  - Body: `{ "status": "ready", "services": {"database": true, "qdrant": true, "openai": true} }`
+  - Body: `{ "status": "ready", "services": {"database": true, "qdrant": true, "cohere": true} }`
 - 503: Service not ready

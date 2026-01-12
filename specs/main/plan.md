@@ -7,12 +7,14 @@
 
 ## Summary
 
-Build and embed a Retrieval-Augmented Generation (RAG) chatbot into the published book that can answer questions using full-book context or user-selected text only. The implementation will use FastAPI backend (rag_backend/, port 8000) with OpenAI GPT-4 integration, Qdrant Cloud for vector storage, Neon Serverless Postgres for metadata, and a React chat widget integrated with the book app (port 3000).
+Build and embed a Retrieval-Augmented Generation (RAG) chatbot into the published book that can answer questions using full-book context or user-selected text only. The implementation will use FastAPI backend (rag_backend/, port 8000) with Cohere integration, Qdrant Cloud for vector storage, Neon Serverless Postgres for metadata, and a React chat widget integrated with the book app (port 3000).
 
 ## Technical Context
 
 **Language/Version**: Python 3.11, JavaScript/ES6 for frontend
-**Primary Dependencies**: FastAPI, uvicorn, qdrant-client, openai, psycopg2-binary, python-dotenv
+**Primary Dependencies**: FastAPI, uvicorn, qdrant-client, cohere, psycopg2-binary, python-dotenv
+**Model Specifications**: Cohere embed-english-v3.0 for embeddings, command-r for chat generation
+**Constraint**: No local model fallback allowed due to 8GB RAM constraint - only cloud-based Cohere models
 **Storage**: Qdrant Cloud (vector storage), Neon Serverless Postgres (metadata, sessions, history)
 **Testing**: pytest for backend, Jest for frontend
 **Target Platform**: Linux server (backend), Cross-platform web browser (frontend)
@@ -25,7 +27,7 @@ Build and embed a Retrieval-Augmented Generation (RAG) chatbot into the publishe
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-- Adheres to Accuracy through primary source verification: Using proven technologies (FastAPI, OpenAI, Qdrant, Postgres) and implementing response verification mechanisms to ensure RAG-generated content accuracy
+- Adheres to Accuracy through primary source verification: Using proven technologies (FastAPI, Cohere, Qdrant, Postgres) and implementing response verification mechanisms to ensure RAG-generated content accuracy
 - Follows Clarity for technical audience: Well-documented APIs and clear architecture
 - Maintains Reproducibility: Using standard libraries, documented deployment procedures, and including performance benchmarking in tests
 - Demonstrates Rigor: Leveraging industry-standard tools and best practices, with load testing and performance monitoring

@@ -6,3 +6,5 @@ psycopg2-binary
 python-dotenv
 PyPDF2
 asyncpg
+# NOTE: Local embedding models (SentenceTransformer, HuggingFace) are intentionally excluded
+# due to 8GB RAM constraint. Only cloud-based Cohere embeddings are used.

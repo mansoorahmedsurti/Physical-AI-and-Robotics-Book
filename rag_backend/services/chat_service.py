@@ -51,7 +51,7 @@ Answer:"""
             # Call Cohere API to generate response
             response = self.co.generate(
                 prompt=full_prompt,
-                model="command-r-plus",  # Using Cohere's high-performance model
+                model="command-r",  # Using Cohere model as specified in requirements
                 temperature=temperature,
                 max_tokens=500  # Limit response length
             )

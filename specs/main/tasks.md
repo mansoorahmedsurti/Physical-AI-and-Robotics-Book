@@ -34,7 +34,7 @@
 - [X] T022 [P] [US1] Implement document chunking algorithm in rag_backend/services/document_processor.py
 - [X] T023 [US1] Create document ingestion endpoint in rag_backend/api/documents.py
 - [X] T024 [P] [US1] Create document listing endpoint in rag_backend/api/documents.py
-- [X] T025 [US1] Implement embedding generation using OpenAI in rag_backend/services/embedding_service.py
+- [X] T025 [US1] Implement embedding generation using Cohere in rag_backend/services/embedding_service.py
 - [X] T026 [P] [US1] Store embeddings in Qdrant in rag_backend/services/qdrant_service.py
 - [X] T027 [P] [US1] Store document metadata in Postgres in rag_backend/services/database.py
 
@@ -56,7 +56,7 @@
 - [X] T034 [US2] Create RAG pipeline in rag_backend/services/chat_service.py
 - [X] T035 [P] [US2] Create chat endpoint in rag_backend/api/chat.py
 - [X] T036 [P] [US2] Create conversation management in rag_backend/api/chat.py
-- [X] T037 [US2] Implement OpenAI integration for response generation in rag_backend/services/chat_service.py
+- [X] T037 [US2] Implement Cohere integration for response generation in rag_backend/services/chat_service.py
 
 ## Phase 5: [US3] Health and Monitoring
 

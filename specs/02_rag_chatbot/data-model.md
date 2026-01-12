@@ -59,7 +59,7 @@ CREATE TABLE messages (
 
 ### Document Chunks Collection
 - **Collection Name**: `document_chunks`
-- **Vector Size**: Determined by embedding model (e.g., 1536 for text-embedding-ada-002)
+- **Vector Size**: Determined by embedding model (e.g., 1024 for embed-english-v3.0)
 - **Distance**: Cosine
 - **Payload**:
   - `document_id`: UUID of source document

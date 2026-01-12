@@ -69,7 +69,7 @@
 - **Acceptance Criteria**:
   - Text chunks converted to embeddings successfully
   - Embeddings stored in Qdrant with proper metadata
-  - OpenAI or sentence-transformers integration working
+  - Cohere integration working
 - **Dependencies**: Task 1.3, Task 2.1
 - **Files**:
   - `rag_backend/embeddings.py`
@@ -114,7 +114,7 @@
 - **Acceptance Criteria**:
   - User query processed through RAG pipeline
   - Context constructed from retrieved chunks
-  - Answer generated using OpenAI API
+  - Answer generated using Cohere API
   - Sources attributed in response
 - **Dependencies**: Task 3.1
 - **Files**:
@@ -122,7 +122,7 @@
 - **Tests**:
   - [ ] Process query through full RAG pipeline
   - [ ] Generate context from retrieved chunks
-  - [ ] Get answer from OpenAI API
+  - [ ] Get answer from Cohere API
   - [ ] Include source attribution in response
 
 ### Task 3.3: Chat API Implementation

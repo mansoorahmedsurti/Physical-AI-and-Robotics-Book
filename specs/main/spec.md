@@ -7,7 +7,7 @@ Build and embed a Retrieval-Augmented Generation (RAG) chatbot into the publishe
 
 ### In Scope
 - FastAPI backend (rag_backend/, port 8000)
-- OpenAI Agents/ChatKit SDK integration (GPT-4)
+- Cohere integration (Command-R Plus model)
 - Qdrant Cloud (vector storage)
 - Neon Serverless Postgres (metadata, sessions, history)
 - PDF ingestion, chunking, embeddings
@@ -23,7 +23,10 @@ Build and embed a Retrieval-Augmented Generation (RAG) chatbot into the publishe
 ### Backend
 - FastAPI + uvicorn server
 - REST APIs for documents, chat, and health checks
-- RAG pipeline (embed → retrieve → generate)
+- RAG pipeline using Cohere (embed → retrieve → generate)
+- Embedding model: embed-english-v3.0
+- Chat model: command-r
+- No local model fallback allowed due to 8GB RAM constraint
 
 ### Storage
 - Qdrant Cloud: embeddings and similarity search
@@ -38,16 +41,17 @@ Build and embed a Retrieval-Augmented Generation (RAG) chatbot into the publishe
 ### Document Processing
 - Parse PDF documents from book content
 - Chunk documents into searchable segments
-- Generate embeddings for each chunk
+- Generate embeddings for each chunk using Cohere embed-english-v3.0 model
 - Store embeddings in Qdrant Cloud
 - Store metadata in Neon Postgres
 
 ### Chat Functionality
 - Accept user questions about book content
 - Retrieve relevant document chunks from Qdrant
-- Generate context-aware answers using GPT-4
+- Generate context-aware answers using Cohere command-r model
 - Provide source citations for answers
 - Maintain conversation history
+- No local model fallback allowed due to 8GB RAM constraint
 
 ### Integration
 - Embed React chat widget into existing book application

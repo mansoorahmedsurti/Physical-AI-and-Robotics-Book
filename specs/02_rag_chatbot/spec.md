@@ -9,7 +9,7 @@ Integrate a Retrieval-Augmented Generation (RAG) chatbot into the existing book 
 - RAG chatbot backend API using FastAPI
 - Integration with Qdrant Cloud for vector storage
 - Integration with Neon Serverless Postgres for metadata storage
-- OpenAI API integration for question answering
+- Cohere API integration for question answering (command-r model)
 - Document ingestion pipeline (PDF processing)
 - React chat widget frontend component
 - Separate deployment pipeline for backend (port 8000)
@@ -38,14 +38,14 @@ Integrate a Retrieval-Augmented Generation (RAG) chatbot into the existing book 
 - **Functionality**: Store document metadata, user sessions, conversation history
 
 ### AI Services
-- **Provider**: OpenAI API
-- **Models**: GPT-4 for question answering
-- **Tokenization**: tiktoken for token counting
+- **Provider**: Cohere API
+- **Models**: command-r for question answering, embed-english-v3.0 for embeddings
+- **No local model fallback**: Due to 8GB RAM constraint, only cloud-based models are used
 
 ### Document Processing
 - **Format**: PDF documents from book content
 - **Processing**: Built-in Python libraries for PDF parsing
-- **Embeddings**: OpenAI for text embeddings
+- **Embeddings**: Cohere embed-english-v3.0 for text embeddings
 
 ### Frontend Integration
 - **Component**: React Chat Widget
@@ -66,7 +66,7 @@ Integrate a Retrieval-Augmented Generation (RAG) chatbot into the existing book 
 2. Embed the question using the same model as documents
 3. Retrieve relevant document chunks from Qdrant Cloud
 4. Construct context from retrieved chunks
-5. Generate answer using OpenAI API
+5. Generate answer using Cohere API
 6. Return answer with source references
 
 ### Conversation Management
@@ -135,11 +135,11 @@ Integrate a Retrieval-Augmented Generation (RAG) chatbot into the existing book 
 
 ### Resource
 - Must work within Qdrant Cloud and Neon Serverless Postgres limitations
-- OpenAI API usage should be optimized for cost efficiency
+- Cohere API usage should be optimized for cost efficiency
 
 ## Assumptions
 
 - Book content is available in PDF format
-- OpenAI API access is properly configured
+- Cohere API access is properly configured
 - Qdrant Cloud and Neon Postgres credentials are available
 - Existing book application can accommodate frontend widget integration

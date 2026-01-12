@@ -24,7 +24,7 @@
 ### 2.1 Document Ingestion
 - [ ] Implement document parsing using built-in Python libraries
 - [ ] Create document chunking algorithm
-- [ ] Develop embedding generation using OpenAI
+- [ ] Develop embedding generation using Cohere embed-english-v3.0
 - [ ] Implement storage of embeddings in Qdrant
 - [ ] Store document metadata in Neon Postgres
 
@@ -44,7 +44,7 @@
 ### 3.1 Retrieval-Augmented Generation
 - [ ] Implement semantic search in Qdrant
 - [ ] Create context construction from retrieved chunks
-- [ ] Integrate OpenAI API for answer generation
+- [ ] Integrate Cohere API (command-r model) for answer generation
 - [ ] Implement source attribution in responses
 
 ### 3.2 Conversation Management
@@ -99,7 +99,7 @@
 - **FastAPI**: Chosen for automatic documentation, async support, and performance
 - **Qdrant Cloud**: Selected for managed vector database service with good performance
 - **Neon Postgres**: Selected for serverless auto-scaling and JSONB support
-- **OpenAI**: Chosen for high-quality embeddings and generation capabilities
+- **Cohere**: Chosen for high-quality embeddings and generation capabilities (embed-english-v3.0 and command-r models)
 
 ### Architecture Decisions
 - **Separate Backend**: RAG service runs independently on port 8000 to maintain separation of concerns
