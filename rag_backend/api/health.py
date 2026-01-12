@@ -62,10 +62,12 @@ async def readiness_check():
         # Check Cohere API key is configured (but don't make an expensive API call)
         services_status["cohere"] = bool(settings.COHERE_API_KEY)
 
-        all_ready = all(services_status.values())
+        # Check if database connection is successful
+        # Status is "ready" only when database is connected
+        is_ready = services_status["database"]
 
         return ReadyResponse(
-            status="ready" if all_ready else "not_ready",
+            status="ready" if is_ready else "not_ready",
             services=services_status
         )
     except Exception as e:

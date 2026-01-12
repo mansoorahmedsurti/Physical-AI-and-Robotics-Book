@@ -40,7 +40,22 @@ const config = {
     ],
   ],
 
+  plugins: [
+    [
+      '@docusaurus/plugin-client-redirects',
+      {
+        redirects: [
+          {
+            to: '/rag-chat',
+            from: '/chat',
+          },
+        ],
+      },
+    ],
+  ],
+
 themeConfig:
+
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
@@ -50,6 +65,11 @@ themeConfig:
           src: 'img/main_logo.png',
         },
         items: [
+          {
+            to: '/rag-chat',
+            label: 'RAG Chat',
+            position: 'left',
+          },
           {
             href: 'https://github.com/mansoorahmedsurti/Physical-AI-and-Robotics-Book',
             label: 'GitHub',

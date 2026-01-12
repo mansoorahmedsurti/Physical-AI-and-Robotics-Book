@@ -45,7 +45,20 @@
       "Bash(powershell -Command \"Get-ChildItem -Path ''C:\\\\Users\\\\Administrator\\\\Desktop\\\\GIAIC_BOOK\\\\myBook\\\\specs\\\\main\\\\checklists'' -Name\")",
       "Bash(find . -name \"*.py\" -exec grep -l \"lifespan\\\\|@app.on_event\\\\|fastapi.*lifespan\" {} ;)",
       "Bash(find . -name \"*.py\" -exec grep -H \"lifespan\\\\|on_event\\\\|@app.on_event\\\\|startup\" {} ;)",
-      "Skill(sp.phr)"
+      "Skill(sp.phr)",
+      "Bash(python -m uvicorn main:app --host 0.0.0.0 --port 8000)",
+      "Bash(python -c \"from main import app; import uvicorn; uvicorn.run\\(app, host=''0.0.0.0'', port=8000\\)\")",
+      "Bash(python run_server.py)",
+      "Bash(python -m uvicorn main:create_app --host 0.0.0.0 --port 8000 --reload)",
+      "Bash(pip install -e .)",
+      "Bash(python -c \"import sys; sys.path.insert\\(0, ''./rag_backend''\\); from rag_backend.main import app; import uvicorn; uvicorn.run\\(app, host=''0.0.0.0'', port=8000\\)\")",
+      "Bash(taskkill /F /IM node.exe)",
+      "Bash(netstat -ano)",
+      "Bash(findstr :3000)",
+      "Bash(taskkill /PID 16624 /F)",
+      "Bash(find . -name \"tmpclaude*\" -o -name \"nul\" -o -name \"*.egg-info\" -exec rm -rf {} +)",
+      "Bash(find . -name \"tmpclaude*\" -o -name \"nul\" -exec del {})",
+      "Bash(dir tmpclaude*.cwd nul)"
     ],
     "deny": [],
     "ask": []

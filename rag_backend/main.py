@@ -1,21 +1,43 @@
+from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.exceptions import RequestValidationError
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, HTMLResponse
+from fastapi.staticfiles import StaticFiles
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.requests import Request
 import time
 import logging
-from .api import documents, chat, health, auth, monitoring, bulk_upload
-from .utils import logger
-from .rate_limit import check_rate_limit
-from .monitoring import record_request_duration, record_error
+try:
+    # Attempt relative imports first (when run as module)
+    from .api import documents, chat, health, auth, monitoring, bulk_upload
+    from .utils import logger
+    from .rate_limit import check_rate_limit
+    from .monitoring import record_request_duration, record_error
+except ImportError:
+    # Fall back to absolute imports (when run as script)
+    from api import documents, chat, health, auth, monitoring, bulk_upload
+    from utils import logger
+    from rate_limit import check_rate_limit
+    from monitoring import record_request_duration, record_error
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Startup
+    print("Starting up RAG Chatbot API...")
+    from .database import db
+    await db.connect()
+    yield
+    # Shutdown
+    await db.disconnect()
+    print("Shutting down RAG Chatbot API...")
 
 def create_app():
     app = FastAPI(
         title="RAG Chatbot API",
         description="API for Retrieval-Augmented Generation chatbot",
-        version="1.0.0"
+        version="1.0.0",
+        lifespan=lifespan
     )
 
     # Add CORS middleware
@@ -81,10 +103,26 @@ def create_app():
     app.include_router(bulk_upload.router, prefix="/api/v1", tags=["bulk_upload"])
     app.include_router(health.router, tags=["health"])
 
+    # Serve the frontend
+    @app.get("/")
+    async def read_root():
+        return {"message": "RAG Chatbot API is running. Visit /docs for API documentation or the frontend for the chat interface."}
+
     return app
 
 app = create_app()
 
 if __name__ == "__main__":
     import uvicorn
+    import signal
+    import sys
+
+    def signal_handler(signum, frame):
+        print("\nReceived interrupt signal. Shutting down gracefully...")
+        sys.exit(0)
+
+    # Register signal handlers for graceful shutdown
+    signal.signal(signal.SIGINT, signal_handler)
+    signal.signal(signal.SIGTERM, signal_handler)
+
     uvicorn.run(app, host="0.0.0.0", port=8000)

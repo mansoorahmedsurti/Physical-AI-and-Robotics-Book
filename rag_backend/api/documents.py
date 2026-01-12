@@ -6,14 +6,30 @@ from typing import Optional
 from uuid import UUID, uuid4
 from datetime import datetime
 import hashlib
-from ..models.document import Document, DocumentCreate, DocumentUpdate
-from ..models.chat import IngestRequest, IngestResponse
-from ..services.document_processor import document_processor
-from ..services.qdrant_service import qdrant_service
-from ..database import db
-from ..utils import logger, InvalidDocumentException, DocumentNotFoundException
-from ..auth import auth_service
-from ..models.user import UserInDB
+try:
+    # Attempt relative imports first (when run as module)
+    from ..models.document import Document, DocumentCreate, DocumentUpdate
+    from ..models.chat import IngestRequest, IngestResponse
+    from ..services.document_processor import document_processor
+    from ..services.qdrant_service import qdrant_service
+    from ..database import db
+    from ..utils import logger, InvalidDocumentException, DocumentNotFoundException
+    from ..auth import auth_service
+except ImportError:
+    # Fall back to absolute imports (when run as script)
+    from models.document import Document, DocumentCreate, DocumentUpdate
+    from models.chat import IngestRequest, IngestResponse
+    from services.document_processor import document_processor
+    from services.qdrant_service import qdrant_service
+    from database import db
+    from utils import logger, InvalidDocumentException, DocumentNotFoundException
+    from auth import auth_service
+try:
+    # Attempt relative import first (when run as module)
+    from ..models.user import UserInDB
+except ImportError:
+    # Fall back to absolute import (when run as script)
+    from models.user import UserInDB
 
 router = APIRouter()
 
