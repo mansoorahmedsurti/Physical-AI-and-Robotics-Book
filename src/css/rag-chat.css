@@ -413,6 +413,43 @@
   background: var(--navbar-footer-background, #111827);
 }
 
+.suggested-prompts {
+  padding: 12px 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  background: var(--navbar-footer-background, #111827);
+  border-bottom: 1px solid var(--card-border, #374151);
+  max-height: 100px;
+  overflow-y: auto;
+}
+
+.suggested-prompt-btn {
+  background: rgba(59, 130, 246, 0.15);
+  border: 1px solid var(--primary-accent, #3b82f6);
+  color: white;
+  padding: 6px 10px;
+  border-radius: 16px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 150px;
+}
+
+.suggested-prompt-btn:hover {
+  background: rgba(59, 130, 246, 0.25);
+  transform: translateY(-1px);
+}
+
+.suggested-prompt-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
 /* Responsive styles for chat widget */
 @media (max-width: 768px) {
   .rag-chat-widget-container {
@@ -428,5 +465,11 @@
     right: 15px;
     width: 55px;
     height: 55px;
+  }
+
+  .suggested-prompt-btn {
+    max-width: 120px;
+    font-size: 0.7rem;
+    padding: 5px 8px;
   }
 }

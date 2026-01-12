@@ -38,6 +38,11 @@ export default [
     exact: true
   },
   {
+    path: '/rag-chat',
+    component: ComponentCreator('/rag-chat', 'ac0'),
+    exact: true
+  },
+  {
     path: '/docs',
     component: ComponentCreator('/docs', '00f'),
     routes: [

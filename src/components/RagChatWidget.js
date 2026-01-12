@@ -12,7 +12,31 @@ const RagChatWidget = () => {
   const [conversations, setConversations] = useState([]);
   const [currentConversationId, setCurrentConversationId] = useState(null);
   const [connectionStatus, setConnectionStatus] = useState('checking'); // 'connected', 'disconnected', 'checking'
+  const [currentPageContext, setCurrentPageContext] = useState('');
   const messagesEndRef = useRef(null);
+
+  // Determine context based on current URL
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const path = window.location.pathname;
+
+      if (path.includes('/docs/ros')) {
+        setCurrentPageContext('ROS 2');
+      } else if (path.includes('/docs/isaac') || path.includes('/docs/simulation')) {
+        setCurrentPageContext('Isaac Sim');
+      } else if (path.includes('/docs/edge') || path.includes('/docs/deployment')) {
+        setCurrentPageContext('Edge Deployment');
+      } else if (path.includes('/docs/vla') || path.includes('/docs/models')) {
+        setCurrentPageContext('VLA Models');
+      } else if (path.includes('/docs/rl') || path.includes('/docs/training')) {
+        setCurrentPageContext('RL Training');
+      } else if (path.includes('/docs/sim2real')) {
+        setCurrentPageContext('Sim2Real Gap');
+      } else {
+        setCurrentPageContext('General');
+      }
+    }
+  }, []);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -134,6 +158,53 @@ const RagChatWidget = () => {
     setIsOpen(false);
   };
 
+  // Get suggested prompts based on current context
+  const getSuggestedPrompts = () => {
+    const prompts = {
+      'ROS 2': [
+        "How do I create a ROS 2 node?",
+        "What are the communication patterns in ROS 2?",
+        "How to use ROS 2 actions and services?"
+      ],
+      'Isaac Sim': [
+        "How do I create a robot in Isaac Sim?",
+        "What are the physics parameters in Isaac Sim?",
+        "How to use OmniGibson with Isaac Sim?"
+      ],
+      'Edge Deployment': [
+        "How to optimize models for Jetson Orin?",
+        "What are the deployment strategies for edge AI?",
+        "How to reduce latency on edge devices?"
+      ],
+      'VLA Models': [
+        "How do Vision-Language-Action models work?",
+        "What are the input requirements for VLA models?",
+        "How to fine-tune VLA models?"
+      ],
+      'RL Training': [
+        "How to implement PPO for robot control?",
+        "What are good RL training practices?",
+        "How to use OmniIsaacGymEnvs?"
+      ],
+      'Sim2Real Gap': [
+        "How to bridge the sim-to-real gap?",
+        "What domain randomization techniques work?",
+        "How to make sim policies work in reality?"
+      ],
+      'General': [
+        "What is embodied intelligence?",
+        "How do robots learn from demonstration?",
+        "What are the latest trends in humanoid robotics?"
+      ]
+    };
+
+    return prompts[currentPageContext] || prompts['General'];
+  };
+
+  const handleSuggestedPromptClick = (prompt) => {
+    setInputText(prompt);
+  };
+
   return (
     <>
       {/* Floating Chat Button */}
@@ -154,7 +225,7 @@ const RagChatWidget = () => {
             <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%'}}>
               <div>
                 <h3>RAG Assistant</h3>
-                <p>Ask about robotics book</p>
+                <p>Ask about {currentPageContext} robotics</p>
               </div>
               <div className={`connection-status ${connectionStatus}`}>
                 <span className="status-indicator"></span>
@@ -190,6 +261,20 @@ const RagChatWidget = () => {
               <div ref={messagesEndRef} />
             </div>
 
+            {/* Suggested prompts based on current page context */}
+            <div className="suggested-prompts">
+              {getSuggestedPrompts().slice(0, 3).map((prompt, index) => (
+                <button
+                  key={index}
+                  className="suggested-prompt-btn"
+                  onClick={() => handleSuggestedPromptClick(prompt)}
+                  disabled={isLoading}
+                >
+                  {prompt}
+                </button>
+              ))}
+            </div>
+
             <div className="rag-chat-input-area">
               <form className="input-form" onSubmit={handleSubmit}>
                 <input
@@ -197,7 +282,7 @@ const RagChatWidget = () => {
                   className="message-input"
                   value={inputText}
                   onChange={(e) => setInputText(e.target.value)}
-                  placeholder="Ask about robotics..."
+                  placeholder={`Ask about ${currentPageContext}...`}
                   disabled={isLoading}
                   autoComplete="off"
                   required

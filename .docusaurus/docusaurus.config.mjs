@@ -35,6 +35,20 @@ export default {
       }
     ]
   ],
+  "plugins": [
+    [
+      "@docusaurus/plugin-client-redirects",
+      {
+        "redirects": [
+          {
+            "to": "/rag-chat",
+            "from": "/chat"
+          }
+        ]
+      }
+    ]
+  ],
+  "themes": [],
   "themeConfig": {
     "navbar": {
       "title": "Physical AI & Humanoid Robotics",
@@ -43,6 +57,11 @@ export default {
         "src": "img/main_logo.png"
       },
       "items": [
+        {
+          "to": "/rag-chat",
+          "label": "RAG Chat",
+          "position": "left"
+        },
         {
           "href": "https://github.com/mansoorahmedsurti/Physical-AI-and-Robotics-Book",
           "label": "GitHub",
@@ -311,8 +330,6 @@ export default {
     "static"
   ],
   "customFields": {},
-  "plugins": [],
-  "themes": [],
   "scripts": [],
   "headTags": [],
   "stylesheets": [],

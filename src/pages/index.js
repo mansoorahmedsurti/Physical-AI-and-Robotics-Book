@@ -27,6 +27,28 @@ function HomepageHeader() {
             View on GitHub
           </Link>
         </div>
+
+        {/* Author Section */}
+        <div className="author-section">
+          <div className="author-info">
+            <div className="author-avatar">
+              <img src="/img/profile-placeholder.jpg" alt="Author" onError={(e) => {
+                e.target.style.display = 'none';
+                const parent = e.target.parentElement;
+                if (parent) parent.style.display = 'none';
+              }} />
+            </div>
+            <div className="author-details">
+              <h4>By Mansoor Ahmed</h4>
+              <p className="author-subtitle">AI & Robotics Engineer</p>
+            </div>
+          </div>
+          <div className="github-stats">
+            <a href="https://github.com/mansoorahmedsurti/Physical-AI-and-Robotics-Book" target="_blank" rel="noopener noreferrer">
+              <span className="github-star">⭐ Star this project</span>
+            </a>
+          </div>
+        </div>
       </div>
     </header>
   );

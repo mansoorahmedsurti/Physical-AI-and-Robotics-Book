@@ -42,6 +42,13 @@
       "plugin": "plugin---docusaurus-debugb-38-ad3"
     }
   },
+  "/rag-chat-ac0": {
+    "__comp": "__comp---site-src-pages-rag-chat-js-968-55f",
+    "__context": {
+      "plugin": "plugin---rag-chata-74-165"
+    },
+    "config": "config---rag-chat-5-e-9-984"
+  },
   "/docs-00f": {
     "__comp": "__comp---theme-docs-root-5-e-9-0b6",
     "__context": {
@@ -86,8 +93,8 @@
   "/-2e1": {
     "__comp": "__comp---site-src-pages-index-jsc-4-f-f99",
     "__context": {
-      "plugin": "plugin---a-74-9d6"
+      "plugin": "plugin---rag-chata-74-165"
     },
-    "config": "config---5-e-9-4f3"
+    "config": "config---rag-chat-5-e-9-984"
   }
 }

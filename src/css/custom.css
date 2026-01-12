@@ -27,13 +27,15 @@ body {
 
 .hero__title {
   font-size: 5rem;
-  background: linear-gradient(45deg, var(--primary-accent), var(--secondary-accent));
+  background: linear-gradient(45deg, var(--primary-accent), #60a5fa, #ffffff); /* Blue to cyan to white gradient */
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   color: transparent;
   margin-bottom: 1rem;
   line-height: 1.1;
+  letter-spacing: -0.02em; /* Tighten kerning for a more modern look */
+  text-shadow: 0 0 20px rgba(59, 130, 246, 0.3); /* Add subtle glow for better visibility */
 }
 
 .hero__subtitle {
@@ -130,6 +132,34 @@ body {
   -webkit-backdrop-filter: blur(10px);
   padding: 1.5rem;
   margin-bottom: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transform-style: preserve-3d;
+  position: relative;
+  overflow: hidden;
+}
+
+.card:hover {
+  transform: translateY(-8px) scale(1.02); /* Float up and slight zoom effect */
+  box-shadow: 0 12px 25px var(--card-glow);
+}
+
+/* Add a subtle glow effect on hover */
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 8px;
+  box-shadow: inset 0 0 15px rgba(59, 130, 246, 0.2);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.card:hover::before {
+  opacity: 1;
 }
 
 .card h3 {
@@ -221,6 +251,147 @@ html, body {
   .card {
     margin: 0.5rem;
   }
+}
+
+/* Author Section */
+.author-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  border: 1px solid var(--card-border);
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.author-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.author-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid var(--primary-accent);
+  flex-shrink: 0;
+}
+
+.author-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.author-details h4 {
+  margin: 0;
+  color: white;
+  font-size: 1.1rem;
+}
+
+.author-subtitle {
+  margin: 0;
+  color: #9ca3af;
+  font-size: 0.9rem;
+}
+
+.github-stats {
+  flex-shrink: 0;
+}
+
+.github-star {
+  color: #fbbf24;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  background: rgba(251, 191, 36, 0.1);
+  border: 1px solid rgba(251, 191, 36, 0.3);
+  transition: all 0.3s ease;
+}
+
+.github-star:hover {
+  background: rgba(251, 191, 36, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Reading Progress Indicator */
+.reading-progress-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.1);
+  z-index: 10000;
+  transform: translateY(-100%);
+  transition: transform 0.3s ease;
+}
+
+.reading-progress-container.active {
+  transform: translateY(0);
+}
+
+.reading-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary-accent), #60a5fa);
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+  transition: width 0.1s ease;
+}
+
+/* Responsive adjustments for author section */
+@media screen and (max-width: 768px) {
+  .author-section {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .author-info {
+    justify-content: center;
+  }
+}
+
+/* Code Block Improvements */
+.code-block-wrapper {
+  position: relative;
+  margin: 1rem 0;
+}
+
+.copy-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  z-index: 1;
+}
+
+.copy-button:hover {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.copy-button.copied {
+  background: rgba(34, 197, 94, 0.8);
+}
+
+/* Syntax Highlighting for Dark Theme */
+.prism-code {
+  background-color: var(--card-background) !important;
+  border: 1px solid var(--card-border) !important;
+  border-radius: 8px !important;
+  padding: 1rem !important;
+  overflow-x: auto !important;
 }
 
 /* Adjust card padding for smaller screens */

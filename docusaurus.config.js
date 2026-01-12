@@ -79,9 +79,23 @@ themeConfig:
         // FIX 2: Clean Copyright Line
         copyright: `Copyright © ${new Date().getFullYear()} Physical AI & Humanoid Robotics. Built with Docusaurus by <a href="https://mansoor--ahmed.vercel.app/" target="_blank" rel="noopener noreferrer">Mansoor Ahmed</a>.`,
       },
+      metadata: [
+        {name: 'keywords', content: 'robotics, AI, machine learning, ROS, Isaac Sim, humanoid robotics, physical AI, embodied intelligence'},
+        {name: 'author', content: 'Mansoor Ahmed'},
+        {property: 'og:title', content: 'Physical AI & Humanoid Robotics'},
+        {property: 'og:description', content: 'From ROS 2 to Isaac Sim: The Future of Embodied Intelligence'},
+        {property: 'og:image', content: 'https://robotics-book-by-mansoor.vercel.app/img/og-image.jpg'}, // Update with actual image path
+        {property: 'og:url', content: 'https://robotics-book-by-mansoor.vercel.app'},
+        {property: 'og:type', content: 'website'},
+        {name: 'twitter:card', content: 'summary_large_image'},
+        {name: 'twitter:title', content: 'Physical AI & Humanoid Robotics'},
+        {name: 'twitter:description', content: 'From ROS 2 to Isaac Sim: The Future of Embodied Intelligence'},
+        {name: 'twitter:image', content: 'https://robotics-book-by-mansoor.vercel.app/img/og-image.jpg'}, // Update with actual image path
+      ],
       prism: {
         theme: require('prism-react-renderer').themes.github,
         darkTheme: require('prism-react-renderer').themes.dracula,
+        additionalLanguages: ['python', 'bash', 'json', 'yaml', 'docker'],
       },
     }),
 };
