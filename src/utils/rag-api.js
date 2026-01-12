@@ -2,7 +2,31 @@
  * API client for RAG chat functionality
  */
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || '/api/v1';
+// Determine the API base URL based on environment
+// For Vercel deployments, use environment variables to configure the backend URL
+const getApiBaseUrl = () => {
+  // Check for environment variables first (these will be available in browser)
+  const envUrl = typeof process !== 'undefined' ? (process.env.REACT_APP_API_URL || process.env.NEXT_PUBLIC_API_URL) : undefined;
+  if (envUrl) {
+    return envUrl.endsWith('/api/v1') ? envUrl : `${envUrl}/api/v1`;
+  }
+
+  // For Vercel deployments, we should have a backend URL configured
+  // In production, this needs to be configured in Vercel environment variables
+  // This is a fallback that will likely not work unless you have a backend running on the same domain
+  console.warn('RAG API URL not configured. The chat functionality will not work until you set up a backend service and configure the API URL.');
+  return '/api/v1'; // This assumes the backend is served from the same domain
+};
+
+const API_BASE_URL = getApiBaseUrl();
+
+// Check if we're in a browser environment
+const isBrowser = typeof window !== 'undefined';
+
+// Log the API URL being used for debugging
+if (isBrowser && typeof window.console !== 'undefined') {
+  console.log('RAG API Base URL:', API_BASE_URL);
+}
 
 /**
  * Object containing all RAG API functions
@@ -17,6 +41,9 @@ export const ragApi = {
    */
   async chat(message, conversationId = null, temperature = 0.7) {
     try {
+      console.log('Making chat API call to:', `${API_BASE_URL}/chat/`);
+      console.log('With payload:', { message, conversation_id: conversationId, temperature });
+
       const response = await fetch(`${API_BASE_URL}/chat/`, {
         method: 'POST',
         headers: {
@@ -33,11 +60,17 @@ export const ragApi = {
         })
       });
 
+      console.log('Response status:', response.status);
+
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        const errorText = await response.text();
+        console.error('API error response:', errorText);
+        throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
       }
 
-      return await response.json();
+      const data = await response.json();
+      console.log('API response data:', data);
+      return data;
     } catch (error) {
       console.error('Error in chat API call:', error);
       throw error;
@@ -51,6 +84,9 @@ export const ragApi = {
    */
   async createConversation(title = null) {
     try {
+      console.log('Making create conversation API call to:', `${API_BASE_URL}/chat/conversation/`);
+      console.log('With payload:', { title });
+
       const response = await fetch(`${API_BASE_URL}/chat/conversation/`, {
         method: 'POST',
         headers: {
@@ -65,11 +101,17 @@ export const ragApi = {
         })
       });
 
+      console.log('Response status:', response.status);
+
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        const errorText = await response.text();
+        console.error('API error response:', errorText);
+        throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
       }
 
-      return await response.json();
+      const data = await response.json();
+      console.log('API response data:', data);
+      return data;
     } catch (error) {
       console.error('Error in create conversation API call:', error);
       throw error;

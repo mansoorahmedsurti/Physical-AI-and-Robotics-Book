@@ -54,6 +54,16 @@ const config = {
     ],
   ],
 
+  // Proxy configuration for API requests
+  themes: [
+    // Add proxy configuration
+  ],
+
+  // Custom fields for API configuration
+  customFields: {
+    apiUrl: process.env.API_URL || 'http://localhost:8000',
+  },
+
 themeConfig:
 
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
