@@ -84,6 +84,7 @@ body {
 .hero {
   position: relative;
   overflow: hidden;
+  min-height: 100vh; /* Ensure it covers full viewport height */
 }
 
 .video-background {
@@ -94,6 +95,7 @@ body {
   height: 100%;
   overflow: hidden;
   z-index: -2;
+  pointer-events: none; /* Ensure video doesn't interfere with clicks */
 }
 
 .background-video {
@@ -105,6 +107,12 @@ body {
   object-fit: cover;
   z-index: -2;
   opacity: 0.3; /* Reduced opacity to make content readable */
+  min-width: 100%;
+  min-height: 100%;
+  /* Center the video to prevent cropping issues */
+  object-position: center center;
+  /* Ensure video loads properly */
+  background: #000; /* Black background as fallback while loading */
 }
 
 .video-overlay {

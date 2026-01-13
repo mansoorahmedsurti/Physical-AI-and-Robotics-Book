@@ -17,7 +17,7 @@ function HomepageHeader() {
         </video>
         <div className="video-overlay"></div>
       </div>
-      <div className="container">
+      <div className="container" style={{position: 'relative', zIndex: 1}}>
         <h1 className="hero__title">
           Physical AI & Humanoid Robotics
         </h1>
