@@ -11,13 +11,21 @@ function HomepageHeader() {
   return (
     <header className="hero hero--primary hero--centered">
       <div className="video-background">
-        <video autoPlay muted loop playsInline className="background-video">
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="background-video"
+          preload="auto"
+          poster="" // Use empty poster to avoid fallback image
+        >
           <source src="/vids/video.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
         <div className="video-overlay"></div>
       </div>
-      <div className="container" style={{position: 'relative', zIndex: 1}}>
+      <div className="container" style={{position: 'relative', zIndex: 3}}>
         <h1 className="hero__title">
           Physical AI & Humanoid Robotics
         </h1>
