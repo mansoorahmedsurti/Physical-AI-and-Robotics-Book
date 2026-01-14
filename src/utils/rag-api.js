@@ -11,11 +11,10 @@ const getApiBaseUrl = () => {
     return envUrl.endsWith('/api/v1') ? envUrl : `${envUrl}/api/v1`;
   }
 
-  // For Vercel deployments, we should have a backend URL configured
-  // In production, this needs to be configured in Vercel environment variables
-  // This is a fallback that will likely not work unless you have a backend running on the same domain
-  console.warn('RAG API URL not configured. The chat functionality will not work until you set up a backend service and configure the API URL.');
-  return '/api/v1'; // This assumes the backend is served from the same domain
+  // Use the deployed backend URL for production
+  const prodUrl = 'https://mansoorahmedsurti-rag-chatbot-robotics.hf.space/api/v1';
+  console.log('Using production RAG API URL:', prodUrl);
+  return prodUrl;
 };
 
 const API_BASE_URL = getApiBaseUrl();

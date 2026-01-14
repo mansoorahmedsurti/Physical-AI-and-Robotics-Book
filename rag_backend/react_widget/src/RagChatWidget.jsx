@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './RagChatWidget.css';
 
-const RagChatWidget = ({ backendUrl = 'http://localhost:8000', documentContext = 'general' }) => {
+const RagChatWidget = ({ backendUrl = 'https://mansoorahmedsurti-rag-chatbot-robotics.hf.space', documentContext = 'general' }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState('');

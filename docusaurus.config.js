@@ -51,7 +51,7 @@ const config = {
 
   // Custom fields for API configuration
   customFields: {
-    apiUrl: process.env.API_URL || 'http://localhost:8000',
+    apiUrl: process.env.API_URL || 'https://mansoorahmedsurti-rag-chatbot-robotics.hf.space',
   },
 
 themeConfig:
