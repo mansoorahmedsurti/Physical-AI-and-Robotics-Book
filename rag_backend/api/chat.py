@@ -70,6 +70,34 @@ async def create_conversation(conversation_create: ConversationCreate = None, cu
         raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")
 
 
+# Public endpoint that doesn't require authentication
+@router.post("/chat/public/", response_model=QueryResponse, tags=["chat"])
+async def public_chat(query_request: QueryRequest):
+    """
+    Send a message and get a RAG-enhanced response without authentication
+    """
+    try:
+        # Pass None as user_id for unauthenticated users
+        result = await chat_service.get_answer(
+            query=query_request.message,
+            conversation_id=query_request.conversation_id,
+            temperature=query_request.temperature,
+            user_id=None
+        )
+
+        response = QueryResponse(
+            conversation_id=result["conversation_id"],
+            response=result["response"],
+            sources=result["sources"],
+            token_usage=result["token_usage"]
+        )
+
+        return response
+    except Exception as e:
+        logger.error(f"Error in public chat endpoint: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")
+
+
 @router.get("/chat/conversation/{conversation_id}", tags=["chat"])
 async def get_conversation_history(conversation_id: str, current_user: UserInDB = Depends(auth_service.get_current_user_optional)):
     """

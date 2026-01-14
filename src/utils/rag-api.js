@@ -43,14 +43,11 @@ export const ragApi = {
       console.log('Making chat API call to:', `${API_BASE_URL}/chat/`);
       console.log('With payload:', { message, conversation_id: conversationId, temperature });
 
-      const response = await fetch(`${API_BASE_URL}/chat/`, {
+      const response = await fetch(`${API_BASE_URL}/chat/public/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          // Add authorization header if needed
-          ...(typeof window !== 'undefined' && localStorage.getItem('auth_token') && {
-            'Authorization': `Bearer ${localStorage.getItem('auth_token')}`
-          })
+          // Remove authorization header for public endpoint
         },
         body: JSON.stringify({
           message: message,
