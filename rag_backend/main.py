@@ -30,7 +30,10 @@ async def lifespan(app: FastAPI):
     print("Starting up RAG Chatbot API...")
 
     # Check if required environment variables are set
-    from .config import settings
+    try:
+        from .config import settings
+    except ImportError:
+        from config import settings
     if not settings.COHERE_API_KEY:
         print("WARNING: COHERE_API_KEY not set. Some features may not work properly.")
 

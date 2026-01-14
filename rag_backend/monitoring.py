@@ -4,7 +4,12 @@ import time
 import json
 from typing import Dict, Any, Optional
 from dataclasses import dataclass
-from .utils import logger
+try:
+    # Attempt relative imports first (when run as module)
+    from .utils import logger
+except ImportError:
+    # Fall back to absolute imports (when run as script)
+    from utils import logger
 import psutil
 import os
 

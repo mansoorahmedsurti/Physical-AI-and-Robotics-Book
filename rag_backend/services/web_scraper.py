@@ -4,10 +4,18 @@ from bs4 import BeautifulSoup
 from urllib.parse import urljoin, urlparse
 import time
 from typing import List, Dict, Any, Optional
-from ..utils import logger
-from ..services.document_processor import document_processor
-from ..services.qdrant_service import qdrant_service
-from ..database import db
+try:
+    # Attempt relative imports first (when run as module)
+    from ..utils import logger
+    from ..services.document_processor import document_processor
+    from ..services.qdrant_service import qdrant_service
+    from ..database import db
+except ImportError:
+    # Fall back to absolute imports (when run as script)
+    from utils import logger
+    from services.document_processor import document_processor
+    from services.qdrant_service import qdrant_service
+    from database import db
 import hashlib
 
 

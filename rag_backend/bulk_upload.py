@@ -1,10 +1,18 @@
 import os
 from pathlib import Path
 from typing import List, Dict, Any
-from .services.document_processor import document_processor
-from .services.qdrant_service import qdrant_service
-from .database import db
-from .utils import logger
+try:
+    # Attempt relative imports first (when run as module)
+    from .services.document_processor import document_processor
+    from .services.qdrant_service import qdrant_service
+    from .database import db
+    from .utils import logger
+except ImportError:
+    # Fall back to absolute imports (when run as script)
+    from services.document_processor import document_processor
+    from services.qdrant_service import qdrant_service
+    from database import db
+    from utils import logger
 import hashlib
 import asyncio
 

@@ -3,7 +3,12 @@ from collections import defaultdict, deque
 from typing import Dict
 import threading
 from fastapi import HTTPException, status
-from .utils import logger
+try:
+    # Attempt relative imports first (when run as module)
+    from .utils import logger
+except ImportError:
+    # Fall back to absolute imports (when run as script)
+    from utils import logger
 
 
 class RateLimiter:

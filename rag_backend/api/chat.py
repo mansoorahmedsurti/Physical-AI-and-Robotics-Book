@@ -1,11 +1,21 @@
 from fastapi import APIRouter, HTTPException, Depends
 from uuid import UUID
-from ..models.chat import QueryRequest, QueryResponse, ConversationCreate
-from ..services.chat_service import chat_service
-from ..database import db
-from ..utils import logger
-from ..auth import auth_service
-from ..models.user import UserInDB
+try:
+    # Attempt relative imports first (when run as module)
+    from ..models.chat import QueryRequest, QueryResponse, ConversationCreate
+    from ..services.chat_service import chat_service
+    from ..database import db
+    from ..utils import logger
+    from ..auth import auth_service
+    from ..models.user import UserInDB
+except ImportError:
+    # Fall back to absolute imports (when run as script)
+    from models.chat import QueryRequest, QueryResponse, ConversationCreate
+    from services.chat_service import chat_service
+    from database import db
+    from utils import logger
+    from auth import auth_service
+    from models.user import UserInDB
 
 router = APIRouter()
 

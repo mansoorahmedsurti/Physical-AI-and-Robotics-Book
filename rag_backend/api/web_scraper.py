@@ -1,9 +1,17 @@
 from fastapi import APIRouter, HTTPException, Depends, Query
 from typing import Optional
-from ..services.web_scraper import web_scraper
-from ..auth import auth_service
-from ..models.user import UserInDB
-from ..utils import logger
+try:
+    # Attempt relative imports first (when run as module)
+    from ..services.web_scraper import web_scraper
+    from ..auth import auth_service
+    from ..models.user import UserInDB
+    from ..utils import logger
+except ImportError:
+    # Fall back to absolute imports (when run as script)
+    from services.web_scraper import web_scraper
+    from auth import auth_service
+    from models.user import UserInDB
+    from utils import logger
 import asyncio
 
 router = APIRouter()

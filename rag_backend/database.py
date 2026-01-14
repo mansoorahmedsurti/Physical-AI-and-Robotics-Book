@@ -2,8 +2,14 @@ import asyncpg
 import json
 from typing import Dict, Any, List, Optional
 from uuid import UUID
-from .config import settings
-from .utils import logger
+try:
+    # Attempt relative imports first (when run as module)
+    from .config import settings
+    from .utils import logger
+except ImportError:
+    # Fall back to absolute imports (when run as script)
+    from config import settings
+    from utils import logger
 
 class Database:
     def __init__(self):

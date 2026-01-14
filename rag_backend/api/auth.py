@@ -1,8 +1,14 @@
 from fastapi import APIRouter, HTTPException, Depends, status
 from fastapi.security import HTTPBearer
 from datetime import timedelta
-from ..models.user import UserCreate, Token
-from ..auth import auth_service, ACCESS_TOKEN_EXPIRE_MINUTES
+try:
+    # Attempt relative imports first (when run as module)
+    from ..models.user import UserCreate, Token
+    from ..auth import auth_service, ACCESS_TOKEN_EXPIRE_MINUTES
+except ImportError:
+    # Fall back to absolute imports (when run as script)
+    from models.user import UserCreate, Token
+    from auth import auth_service, ACCESS_TOKEN_EXPIRE_MINUTES
 
 router = APIRouter()
 security = HTTPBearer()

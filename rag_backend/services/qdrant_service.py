@@ -1,7 +1,12 @@
 from qdrant_client import QdrantClient
 from qdrant_client.http import models
 from typing import List, Dict, Any
-from ..config import settings
+try:
+    # Attempt relative imports first (when run as module)
+    from ..config import settings
+except ImportError:
+    # Fall back to absolute imports (when run as script)
+    from config import settings
 
 class QdrantService:
     def __init__(self):

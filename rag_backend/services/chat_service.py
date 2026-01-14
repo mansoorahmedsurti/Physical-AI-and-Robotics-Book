@@ -2,11 +2,20 @@ import cohere
 from typing import List, Dict, Any
 from uuid import UUID, uuid4
 from datetime import datetime
-from ..config import settings
-from ..services.qdrant_service import qdrant_service
-from ..services.embedding_service import embedding_service
-from ..database import db
-from ..utils import logger
+try:
+    # Attempt relative imports first (when run as module)
+    from ..config import settings
+    from ..services.qdrant_service import qdrant_service
+    from ..services.embedding_service import embedding_service
+    from ..database import db
+    from ..utils import logger
+except ImportError:
+    # Fall back to absolute imports (when run as script)
+    from config import settings
+    from services.qdrant_service import qdrant_service
+    from services.embedding_service import embedding_service
+    from database import db
+    from utils import logger
 
 class ChatService:
     def __init__(self):

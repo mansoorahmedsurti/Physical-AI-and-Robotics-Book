@@ -9,10 +9,18 @@ from PIL import Image
 import pytesseract
 from io import BytesIO
 import json
-from ..utils import logger, InvalidDocumentException
-from .qdrant_service import qdrant_service
-from .embedding_service import EmbeddingService
-from ..config import settings
+try:
+    # Attempt relative imports first (when run as module)
+    from ..utils import logger, InvalidDocumentException
+    from .qdrant_service import qdrant_service
+    from .embedding_service import EmbeddingService
+    from ..config import settings
+except ImportError:
+    # Fall back to absolute imports (when run as script)
+    from utils import logger, InvalidDocumentException
+    from services.qdrant_service import qdrant_service
+    from services.embedding_service import EmbeddingService
+    from config import settings
 
 class DocumentProcessor:
     def __init__(self):

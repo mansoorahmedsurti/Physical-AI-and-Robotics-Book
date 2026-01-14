@@ -5,8 +5,14 @@ from passlib.context import CryptContext
 from fastapi import HTTPException, Depends, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 import os
-from .models.user import User, UserCreate, UserInDB
-from .database import db
+try:
+    # Attempt relative imports first (when run as module)
+    from .models.user import User, UserCreate, UserInDB
+    from .database import db
+except ImportError:
+    # Fall back to absolute imports (when run as script)
+    from models.user import User, UserCreate, UserInDB
+    from database import db
 
 # Security configuration
 SECRET_KEY = os.getenv("SECRET_KEY", "your-secret-key-change-in-production")
