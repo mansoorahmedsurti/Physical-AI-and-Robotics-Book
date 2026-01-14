@@ -20,7 +20,7 @@ ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-security = HTTPBearer()
+security = HTTPBearer(auto_error=False)  # Make authentication optional
 
 class AuthService:
     @staticmethod
@@ -69,6 +69,25 @@ class AuthService:
         user = await db.get_user_by_username(username)
         if user is None:
             raise credentials_exception
+        return user
+
+    @staticmethod
+    async def get_current_user_optional(credentials: HTTPAuthorizationCredentials = Depends(security)) -> Optional[UserInDB]:
+        """
+        Optionally get the current user, return None if not authenticated
+        """
+        if credentials is None:
+            return None
+
+        try:
+            payload = jwt.decode(credentials.credentials, SECRET_KEY, algorithms=[ALGORITHM])
+            username: str = payload.get("sub")
+            if username is None:
+                return None
+        except jwt.PyJWTError:
+            return None
+
+        user = await db.get_user_by_username(username)
         return user
 
     @staticmethod
