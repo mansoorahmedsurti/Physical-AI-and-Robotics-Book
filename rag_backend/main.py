@@ -2,34 +2,56 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.exceptions import RequestValidationError
-from fastapi.responses import JSONResponse, HTMLResponse
-from fastapi.staticfiles import StaticFiles
+from fastapi.responses import JSONResponse
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.requests import Request
 import time
 import logging
+
+# Handle imports for different execution contexts
 try:
     # Attempt relative imports first (when run as module)
     from .api import documents, chat, health, auth, monitoring, bulk_upload
     from .utils import logger
     from .rate_limit import check_rate_limit
     from .monitoring import record_request_duration, record_error
+    from .database import db
 except ImportError:
     # Fall back to absolute imports (when run as script)
     from api import documents, chat, health, auth, monitoring, bulk_upload
     from utils import logger
     from rate_limit import check_rate_limit
     from monitoring import record_request_duration, record_error
+    from database import db
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Startup
     print("Starting up RAG Chatbot API...")
-    from .database import db
-    await db.connect()
+
+    # Check if required environment variables are set
+    from .config import settings
+    if not settings.COHERE_API_KEY:
+        print("WARNING: COHERE_API_KEY not set. Some features may not work properly.")
+
+    if not settings.QDRANT_HOST or not settings.QDRANT_API_KEY:
+        print("WARNING: QDRANT_HOST or QDRANT_API_KEY not set. Vector storage features may not work.")
+
+    if not settings.DATABASE_URL:
+        print("WARNING: DATABASE_URL not set. Database features may not work.")
+
+    try:
+        await db.connect()
+    except Exception as e:
+        print(f"Database connection failed: {e}. Some features may be limited.")
+
     yield
+
     # Shutdown
-    await db.disconnect()
+    try:
+        await db.disconnect()
+    except:
+        pass  # Ignore disconnection errors during shutdown
     print("Shutting down RAG Chatbot API...")
 
 def create_app():

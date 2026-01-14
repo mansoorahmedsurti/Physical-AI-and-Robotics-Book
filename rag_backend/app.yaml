@@ -1,0 +1,24 @@
+name: "RAG Chatbot Backend"
+short_description: "A RAG (Retrieval-Augmented Generation) chatbot backend"
+description: |
+  This is a RAG (Retrieval-Augmented Generation) chatbot backend built with FastAPI.
+  It allows users to upload documents and ask questions about them using AI-powered
+  retrieval and generation.
+
+  Features:
+  - Document ingestion and processing
+  - Vector storage with Qdrant
+  - Cohere-powered embeddings and generation
+  - PostgreSQL database for metadata
+  - Rate limiting and monitoring
+
+tags:
+  - python
+  - fastapi
+  - rag
+  - chatbot
+  - nlp
+  - ai
+
+license: mit
+---

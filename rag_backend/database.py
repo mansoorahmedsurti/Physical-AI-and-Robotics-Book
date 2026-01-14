@@ -11,6 +11,11 @@ class Database:
 
     async def connect(self):
         """Establish connection to the database"""
+        if not settings.DATABASE_URL:
+            print("DATABASE_URL not set, skipping database initialization")
+            self.pool = None
+            return
+
         try:
             self.pool = await asyncpg.create_pool(
                 dsn=settings.DATABASE_URL,
@@ -24,7 +29,9 @@ class Database:
             await self._initialize_tables()
         except Exception as e:
             logger.error(f"Failed to connect to database: {e}")
-            raise
+            # Don't raise the exception - allow the app to run without database if needed
+            self.pool = None
+            print("Warning: Database connection failed, running in limited mode")
 
     async def disconnect(self):
         """Close the database connection"""
@@ -108,7 +115,9 @@ class Database:
     async def execute_query(self, query: str, *args):
         """Execute a query with the given arguments"""
         if not self.pool:
-            raise Exception("Database not connected")
+            # Return empty result when database is not available
+            print("Database not connected, returning empty result")
+            return []
 
         async with self.pool.acquire() as conn:
             return await conn.fetch(query, *args)
@@ -116,7 +125,9 @@ class Database:
     async def execute_command(self, command: str, *args):
         """Execute a command (INSERT, UPDATE, DELETE) with the given arguments"""
         if not self.pool:
-            raise Exception("Database not connected")
+            # Log when database is not available
+            print("Database not connected, skipping command execution")
+            return None
 
         async with self.pool.acquire() as conn:
             return await conn.execute(command, *args)
@@ -124,6 +135,13 @@ class Database:
     # Document-related methods
     async def create_document(self, document_data: Dict[str, Any]) -> str:
         """Create a new document record"""
+        if not self.pool:
+            # Return a mock ID when database is not available
+            import uuid
+            mock_id = str(uuid.uuid4())
+            print(f"Database not connected, returning mock document ID: {mock_id}")
+            return mock_id
+
         try:
             async with self.pool.acquire() as conn:
                 result = await conn.fetchrow("""
@@ -150,6 +168,11 @@ class Database:
 
     async def get_document(self, document_id: str) -> Optional[Dict[str, Any]]:
         """Get a document by ID"""
+        if not self.pool:
+            # Return None when database is not available
+            print("Database not connected, returning None for document")
+            return None
+
         try:
             async with self.pool.acquire() as conn:
                 result = await conn.fetchrow("""
@@ -170,6 +193,11 @@ class Database:
 
     async def update_document_status(self, document_id: str, status: str):
         """Update the status of a document"""
+        if not self.pool:
+            # Skip update when database is not available
+            print("Database not connected, skipping document status update")
+            return
+
         try:
             async with self.pool.acquire() as conn:
                 await conn.execute("""
@@ -233,6 +261,11 @@ class Database:
     # Document-related methods
     async def list_documents(self, limit: int = 10, offset: int = 0, status: Optional[str] = None) -> List[Dict[str, Any]]:
         """List documents with optional filtering"""
+        if not self.pool:
+            # Return empty list when database is not available
+            print("Database not connected, returning empty document list")
+            return []
+
         try:
             query = "SELECT * FROM documents"
             params = []

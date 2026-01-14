@@ -15,8 +15,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the rest of the application
 COPY . .
 
-# Expose port 8000
-EXPOSE 8000
+# Expose port 7860 (Hugging Face Spaces default)
+EXPOSE 7860
 
-# Run the application
-CMD ["uvicorn", "rag_backend.main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Run the application - Hugging Face expects the app to run on port 7860
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "7860"]
