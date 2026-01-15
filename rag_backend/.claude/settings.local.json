@@ -18,7 +18,8 @@
       "Bash(python -c \"import sys; sys.argv = [''ingest.py'']; import importlib.util; spec = importlib.util.spec_from_file_location\\(''ingest'', ''ingest.py''\\); module = importlib.util.module_from_spec\\(spec\\); spec.loader.exec_module\\(module\\); print\\(''Ingest script imported successfully''\\)\")",
       "Bash(python ingest.py \"C:\\\\Users\\\\Administrator\\\\Desktop\\\\GIAIC_BOOK\\\\Content\\(for Qdrant\\)\\\\Intro\\\\README.md\")",
       "Bash(dir /s)",
-      "Bash(echo \"# Cohere Configuration\nCOHERE_API_KEY=your-cohere-api-key-here\n\n# Qdrant Configuration \\(optional - for demo mode leave blank\\)\nQDRANT_API_KEY=\nQDRANT_HOST=\n\n# Database Configuration \\(optional - for demo mode leave blank\\)\nDATABASE_URL=\n\n# Application Configuration\nSECRET_KEY=your-secret-key-here\nDEBUG=False\")"
+      "Bash(echo \"# Cohere Configuration\nCOHERE_API_KEY=your-cohere-api-key-here\n\n# Qdrant Configuration \\(optional - for demo mode leave blank\\)\nQDRANT_API_KEY=\nQDRANT_HOST=\n\n# Database Configuration \\(optional - for demo mode leave blank\\)\nDATABASE_URL=\n\n# Application Configuration\nSECRET_KEY=your-secret-key-here\nDEBUG=False\")",
+      "Bash(tree .)"
     ]
   }
 }
