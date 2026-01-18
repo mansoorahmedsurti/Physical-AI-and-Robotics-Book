@@ -14,38 +14,44 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
-/* Enhanced hero section styling for video background */
-.hero {
-  /* Remove the original background to let video show through */
+/* Most specific selectors to override Docusaurus defaults */
+header.hero,
+header.hero--primary,
+header.hero--centered,
+.hero,
+.hero--primary,
+.hero--centered,
+header:has(.video-background),
+header[class*="hero"] {
+  /* Remove any and all backgrounds to let video show through */
   background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: cover !important;
+  border: none !important;
+  box-shadow: none !important;
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
   padding: 4rem 0;
-  position: relative;
-  overflow: hidden;
-  min-height: 100vh; /* Ensure it covers full viewport height */
-  /* Ensure no default Docusaurus background */
-  background-image: none !important;
-  border: none !important;
 }
 
-/* Ensure hero--primary doesn't override our transparency */
-.hero--primary {
-  background: transparent !important;
-}
-
-/* Ensure the container inside hero is transparent */
+/* Extra specific container styling */
+header:has(.video-background) .container,
+header.hero .container,
 .hero .container {
   background-color: transparent !important;
-}
-
-/* Ensure the header element itself doesn't have a background */
-header.hero {
-  background: transparent !important;
-  background-color: transparent !important;
-  background-image: none !important;
+  position: relative;
+  z-index: 3;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
 }
 
 .hero__title {
