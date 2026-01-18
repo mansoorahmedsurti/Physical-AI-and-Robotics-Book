@@ -16,12 +16,25 @@ body {
 
 .hero {
   /* Remove the original background to let video show through */
-  background: transparent;
+  background: transparent !important;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
   padding: 4rem 0;
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh; /* Ensure it covers full viewport height */
+}
+
+/* Ensure hero--primary doesn't override our transparency */
+.hero--primary {
+  background: transparent !important;
+}
+
+/* Ensure the container inside hero is transparent */
+.hero .container {
+  background-color: transparent !important;
 }
 
 .hero__title {
@@ -101,6 +114,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  /* Add a more explicit background for video loading */
+  background: #000;
 }
 
 .background-video {
@@ -111,7 +126,7 @@ body {
   height: 100%;
   object-fit: cover;
   z-index: -2;
-  opacity: 0.3; /* Reduced opacity to make content readable */
+  opacity: 0.4; /* Slightly increased opacity for better visibility */
   min-width: 100%;
   min-height: 100%;
   /* Center the video to prevent cropping issues */
@@ -128,7 +143,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at center, rgba(11, 17, 32, 0.7) 0%, var(--background-color) 70%);
+  background: radial-gradient(circle at center, rgba(11, 17, 32, 0.5) 0%, rgba(11, 17, 32, 0.7) 70%); /* Reduced opacity for better video visibility */
   z-index: -1;
 }
 
