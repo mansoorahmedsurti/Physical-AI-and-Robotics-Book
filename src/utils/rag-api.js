@@ -12,7 +12,7 @@ const getApiBaseUrl = () => {
   }
 
   // Use the deployed backend URL for production
-  const prodUrl = 'http://mansoorahmedsurti-rag-chatbot-robotics.hf.space/api/v1';
+  const prodUrl = 'https://mansoorahmedsurti-rag-chatbot-robotics.hf.space/api/v1';
   console.log('Using production RAG API URL:', prodUrl);
   return prodUrl;
 };
