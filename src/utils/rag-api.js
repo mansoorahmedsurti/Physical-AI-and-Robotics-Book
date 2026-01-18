@@ -39,37 +39,71 @@ export const ragApi = {
    * @returns {Promise<Object>} Response containing conversation_id, response, and sources
    */
   async chat(message, conversationId = null, temperature = 0.7) {
-    try {
-      console.log('Making chat API call to:', `${API_BASE_URL}/chat/`);
-      console.log('With payload:', { message, conversation_id: conversationId, temperature });
+    // Retry logic for Hugging Face Spaces that may be sleeping
+    const maxRetries = 3;
+    const baseDelay = 2000; // 2 seconds base delay
 
-      const response = await fetch(`${API_BASE_URL}/chat/public/`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          // Remove authorization header for public endpoint
-        },
-        body: JSON.stringify({
-          message: message,
-          conversation_id: conversationId,
-          temperature: temperature
-        })
-      });
+    for (let attempt = 1; attempt <= maxRetries; attempt++) {
+      try {
+        console.log(`Making chat API call to: ${API_BASE_URL}/chat/public/ (attempt ${attempt})`);
+        console.log('With payload:', { message, conversation_id: conversationId, temperature });
 
-      console.log('Response status:', response.status);
+        // Set a longer timeout for the fetch request to accommodate Hugging Face Space wake-up time
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
 
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error('API error response:', errorText);
-        throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
+        const response = await fetch(`${API_BASE_URL}/chat/public/`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            // Remove authorization header for public endpoint
+          },
+          body: JSON.stringify({
+            message: message,
+            conversation_id: conversationId,
+            temperature: temperature
+          }),
+          signal: controller.signal
+        });
+
+        clearTimeout(timeoutId);
+
+        console.log('Response status:', response.status);
+
+        if (!response.ok) {
+          const errorText = await response.text().catch(() => 'Unable to read error response');
+          console.error('API error response:', errorText);
+
+          // If it's a 503 (Service Unavailable) or 504 (Gateway Timeout), likely the space is sleeping
+          if (response.status === 503 || response.status === 504 || response.status === 502) {
+            if (attempt < maxRetries) {
+              console.log(`Backend may be sleeping, retrying in ${attempt * baseDelay}ms...`);
+              await new Promise(resolve => setTimeout(resolve, attempt * baseDelay));
+              continue; // Retry
+            }
+          }
+
+          throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
+        }
+
+        const data = await response.json();
+        console.log('API response data:', data);
+        return data;
+      } catch (error) {
+        console.error(`Error in chat API call (attempt ${attempt}):`, error);
+
+        // If it's an abort error (timeout), and we have more retries, continue
+        if (error.name === 'AbortError' && attempt < maxRetries) {
+          console.log(`Request timed out, retrying in ${attempt * baseDelay}ms...`);
+          await new Promise(resolve => setTimeout(resolve, attempt * baseDelay));
+          continue; // Retry
+        }
+
+        // If we've exhausted retries, throw the error
+        if (attempt === maxRetries) {
+          throw error;
+        }
       }
-
-      const data = await response.json();
-      console.log('API response data:', data);
-      return data;
-    } catch (error) {
-      console.error('Error in chat API call:', error);
-      throw error;
     }
   },
 
@@ -179,20 +213,45 @@ export const ragApi = {
    * @returns {Promise<boolean>} Whether the backend is accessible
    */
   async healthCheck() {
-    try {
-      // Try to reach the health endpoint first, fall back to a simple GET
-      const healthUrl = `${API_BASE_URL.replace('/api/v1', '')}/health`;
-      const response = await fetch(healthUrl, {
-        method: 'GET',
-        headers: {
-          'Accept': 'application/json',
-        }
-      });
+    // Retry logic for Hugging Face Spaces that may be sleeping
+    const maxRetries = 2;
+    const baseDelay = 1000; // 1 second base delay
 
-      return response.ok;
-    } catch (error) {
-      console.warn('Health check failed:', error);
-      return false;
+    for (let attempt = 1; attempt <= maxRetries; attempt++) {
+      try {
+        // Try to reach the health endpoint first, fall back to a simple GET
+        const healthUrl = `${API_BASE_URL.replace('/api/v1', '')}/health`;
+
+        console.log(`Making health check to: ${healthUrl} (attempt ${attempt})`);
+
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 second timeout
+
+        const response = await fetch(healthUrl, {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json',
+          },
+          signal: controller.signal
+        });
+
+        clearTimeout(timeoutId);
+
+        const isHealthy = response.ok;
+        console.log(`Health check result: ${isHealthy ? 'healthy' : 'unhealthy'} (status: ${response.status})`);
+
+        return isHealthy;
+      } catch (error) {
+        console.warn(`Health check failed (attempt ${attempt}):`, error);
+
+        if (attempt < maxRetries) {
+          console.log(`Backend may be sleeping, retrying in ${attempt * baseDelay}ms...`);
+          await new Promise(resolve => setTimeout(resolve, attempt * baseDelay));
+          continue; // Retry
+        }
+
+        return false;
+      }
     }
   }
 };
