@@ -26,3 +26,10 @@ NEXT_PUBLIC_API_URL=https://my-rag-backend.hf.space
 ```
 
 The frontend will automatically append `/api/v1` to this URL, making requests to `https://my-rag-backend.hf.space/api/v1/chat/`, etc.
+
+### Important Note for Hugging Face Spaces
+
+If using Hugging Face Spaces for your backend:
+1. The space may go to sleep when inactive. Wake it up by visiting the space URL directly before using the chatbot.
+2. Ensure your space is configured to stay awake if possible (requires Pro account).
+3. The first request after waking up may take longer to respond.
