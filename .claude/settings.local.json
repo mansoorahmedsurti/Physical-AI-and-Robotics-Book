@@ -76,7 +76,9 @@
       "Bash(curl -X POST https://mansoorahmedsurti-rag-chatbot-robotics.hf.space/api/v1/chat/ -H \"Content-Type: application/json\" -H \"Accept: application/json\" -d '{\"\"message\"\": \"\"Hello\"\", \"\"temperature\"\": 0.7}')",
       "Bash(curl https://mansoorahmedsurti-rag-chatbot-robotics.hf.space/openapi.json)",
       "Bash(curl -X POST https://mansoorahmedsurti-rag-chatbot-robotics.hf.space/api/v1/chat/public/ -H \"Content-Type: application/json\" -d '{\"\"message\"\": \"\"Hello, can you respond now?\"\", \"\"temperature\"\": 0.7}')",
-      "Bash(curl -X POST https://mansoorahmedsurti-rag-chatbot-robotics.hf.space/api/v1/chat/ -H \"Content-Type: application/json\" -d '{\"\"message\"\": \"\"Hello\"\", \"\"temperature\"\": 0.7}')"
+      "Bash(curl -X POST https://mansoorahmedsurti-rag-chatbot-robotics.hf.space/api/v1/chat/ -H \"Content-Type: application/json\" -d '{\"\"message\"\": \"\"Hello\"\", \"\"temperature\"\": 0.7}')",
+      "Bash(git revert 729bcfe --no-edit)",
+      "Bash(dir \"C:\\\\Users\\\\Administrator\\\\Desktop\\\\GIAIC_BOOK\\\\myBook\\\\static\\\\vids\\\\video.mp4\")"
     ],
     "deny": [],
     "ask": []
